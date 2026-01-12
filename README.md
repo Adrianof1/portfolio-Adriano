@@ -1,16 +1,63 @@
-# React + Vite
+<div align="center">
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=20C20E&background=00000000&center=true&vCenter=true&width=435&lines=Adriano+Ferreira;Full+Stack+Developer;React+%7C+Python+%7C+Automa%C3%A7%C3%A3o;Code+is+Art" alt="Typing SVG" />
+  </a>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  <h1>🚀 Adriano Ferreira</h1>
+  
+  <p>
+    <a href="https://linkedin.com/in/adrianoferreira-dev">
+      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+    </a>
+    <a href="https://wa.me/5586999830819">
+      <img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
+    </a>
+    <a href="https://github.com/Adrianof1">
+      <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
+    </a>
+  </p>
 
-Currently, two official plugins are available:
+  <br/>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <h3>🔥 Minha Constância</h3>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Adrianof1&theme=tokyonight&hide_border=true&date_format=M%20j%5B%2C%20Y%5D" alt="GitHub Streak" />
+</div>
 
-## React Compiler
+<hr/>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<h3 align="center">🛠️ Arsenal Tecnológico</h3>
+<div align="center">
+  <img src="https://skillicons.dev/icons?i=react,js,html,css,tailwind,python,nodejs,mysql,git,vscode,vite,linux&perline=7" />
+</div>
 
-## Expanding the ESLint configuration
+<br/>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<div align="center">
+  <h3>💻 Projetos em Destaque</h3>
+  
+| 🚀 Projeto | 📝 O que resolve? | 🛠️ Stack | 🟢 Status |
+| :--- | :--- | :--- | :---: |
+| **Portfólio Blindado** | Minha identidade digital segura e moderna. | ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB) | [![New](https://img.shields.io/badge/Novo-Launch-success?style=flat-square)](https://github.com/Adrianof1/portfolio-blindado) |
+| **PC Pinturas** | Site de alta conversão e SEO local. | ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB) | [![Website](https://img.shields.io/website?url=https%3A%2F%2Fpcpinturasthe.netlify.app&up_message=Online&up_color=success&style=flat-square)](https://pcpinturasthe.netlify.app) |
+| **Gestão Escolar** | Sistema gamificado de ensino. | ![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white) | [![Website](https://img.shields.io/website?url=https%3A%2F%2Fgestaoescolarereforco.netlify.app&up_message=Online&up_color=success&style=flat-square)](https://gestaoescolarereforco.netlify.app/) |
+| **AIPMS** | Portal social e acessível. | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | [![Website](https://img.shields.io/website?url=https%3A%2F%2Faipms.netlify.app&up_message=Online&up_color=success&style=flat-square)](https://aipms.netlify.app/) |
+
+</div>
+
+<br/>
+
+<h3 align="center">🐍 Contribuições</h3>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Adrianof1/Adrianof1/output/github-contribution-grid-snake-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Adrianof1/Adrianof1/output/github-contribution-grid-snake.svg">
+    <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/Adrianof1/Adrianof1/output/github-contribution-grid-snake.svg">
+  </picture>
+</div>
+
+<hr/>
+
+<div align="center">
+  <p><i>"A única maneira de fazer um ótimo trabalho é amar o que você faz."</i></p>
+  <p>© 2021 - 2026 Adriano Ferreira</p>
+</div>
