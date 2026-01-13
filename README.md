@@ -33,7 +33,7 @@
 <br/>
 
 <div align="center">
-  <h3>💻 Projetos em Destaque</h3>
+  <h3>💻 Projetos em Destaque 💻</h3>
   
 | 🚀 Projeto | 📝 O que resolve? | 🛠️ Stack | 🟢 Status |
 | :--- | :--- | :--- | :---: |
