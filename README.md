@@ -41,6 +41,7 @@
 | **PC Pinturas** | Site de alta conversão e SEO local. | ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB) | [![Website](https://img.shields.io/website?url=https%3A%2F%2Fpcpinturasthe.netlify.app&up_message=Online&up_color=success&style=flat-square)](https://pcpinturasthe.netlify.app) |
 | **Gestão Escolar** | Sistema gamificado de ensino. | ![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white) | [![Website](https://img.shields.io/website?url=https%3A%2F%2Fgestaoescolarereforco.netlify.app&up_message=Online&up_color=success&style=flat-square)](https://gestaoescolarereforco.netlify.app/) |
 | **AIPMS** | Portal social e acessível. | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | [![Website](https://img.shields.io/website?url=https%3A%2F%2Faipms.netlify.app&up_message=Online&up_color=success&style=flat-square)](https://aipms.netlify.app/) |
+| **IW Decor** | Catálogo visual moderno. | ![UI/UX](https://img.shields.io/badge/UI%2FUX-Design-purple) | [![Website](https://img.shields.io/website?url=https%3A%2F%2Fiwdecor.netlify.app&up_message=Online&up_color=success&style=flat-square)](https://iwdecor.netlify.app/) |
 
 </div>
 
