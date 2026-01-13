@@ -53,6 +53,7 @@ function App() {
         
         <Helmet>
           <title>Adriano Ferreira | Dev. Full Stack</title>
+          <meta name="description" content="Portfólio de Adriano Ferreira. Desenvolvedor Full Stack especializado em React, Python, Automação e Cibersegurança. Transformando código em soluções seguras." />
         </Helmet>
 
         {showIntro ? (
