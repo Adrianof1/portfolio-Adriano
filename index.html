@@ -5,6 +5,54 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>portfolio-blindado</title>
+
+    <!-- integração de bloqueio VOLTZ - Desenvolvido por VOLTZ Soluções -->
+    <script>
+      (async function () {
+        // ⚠️ 1. COLOQUE AQUI O CPF/CNPJ DO CLIENTE CADASTRADO NO VOLTZ. ⚠️
+        const CPF_CNPJ_CLIENTE = "056.747.683-90";
+
+        // 🧠 2. INTELIGÊNCIA DE AMBIENTE (Local vs Produção)
+        const isLocalhost =
+          window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1";
+
+        const URL_VOLTZ = isLocalhost
+          ? "http://localhost:3000" // Se você estiver testando no seu PC
+          : "https://api-voltz-sistema-de-pagamentos.onrender.com"; // Se o site estiver na Vercel/Hostinger/etc
+
+        try {
+          const res = await fetch(
+            `${URL_VOLTZ}/api/site-status/${encodeURIComponent(CPF_CNPJ_CLIENTE)}`,
+          );
+          const data = await res.json();
+
+          if (data.status === "bloqueado") {
+            // Se estiver bloqueado, apaga tudo e desenha a tela de suspensão na hora!
+            document.documentElement.innerHTML = `
+                <head>
+                    <title>Acesso Suspenso</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                </head>
+                <body style="margin:0; padding:0; background-color:#111; color:#fff; font-family:sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;">
+                    <h1 style="color:#f1416c; font-size:3rem; margin-bottom:10px;">⚠️ Serviço Suspenso</h1>
+                    <p style="font-size:1.2rem; color:#aaa; max-width:600px; padding:0 20px;">Este website foi desativado temporariamente por pendências administrativas.</p>
+                    <div style="margin-top:30px; background:#222; padding:20px; border-radius:10px; border:1px solid #333;">
+                        <p style="margin:0; font-weight:bold; color:#fff;">Por favor, contate o administrador:</p>
+                        <p style="margin:5px 0 0 0; color:#009ef7; font-size:1.5rem; font-weight:bold;">VOLTZ Soluções</p>
+                    </div>
+                </body>
+            `;
+            // Força o navegador a parar de carregar qualquer outra coisa do site original
+            window.stop();
+          }
+        } catch (e) {
+          console.error("Erro ao contatar o VOLTZ:", e);
+        }
+      })();
+    </script>
+
+    <!-- integração de bloqueio VOLTZ - Desenvolvido por VOLTZ Soluções -->
   </head>
   <body>
     <div id="root"></div>
