@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Linkedin, MessageCircle, ExternalLink, ShieldCheck, Code2, Server, Smartphone, Github, ArrowDown, Zap, Sun, Wrench, Camera } from "lucide-react";
+import { Linkedin, MessageCircle, ExternalLink, ShieldCheck, Code2, Server, Smartphone, Github, ArrowDown, Zap, Sun, Wrench, Camera, Car, Building2 } from "lucide-react";
 import Intro from "./components/Intro";
 import HackerText from "./components/HackerText";
 
@@ -33,6 +33,10 @@ const services = [
   "⚡ Dimensionamento de Projetos Solares",
   "⚡ Dimensionamento de Bancos de Baterias",
   "⚡ Assessoria e Negociação de Financiamento junto aos Bancos",
+  "🔌 Instalação de Carregadores para Veículos Elétricos (EV)",
+  "🔌 Inspeção e Laudo Técnico de Instalações Elétricas",
+  "🏠 Instalação Elétrica Residencial",
+  "🏢 Instalação Elétrica Predial e Comercial",
   "🏠 Automação Residencial Inteligente",
   "🏢 Automação Industrial e Empresarial",
   "📷 Instalação de Câmeras de Segurança (CFTV)",
@@ -205,6 +209,25 @@ function App() {
                       </div>
                       <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Desenvolvimento Web & TI</h3>
                       <p className="text-gray-400 text-sm">Sistemas Full-Stack modernos, plataformas de gestão, landing pages de alta conversão, automação inteligente e infraestrutura de TI — React, Next.js, Node.js e Python.</p>
+                    </div>
+                  </motion.div>
+
+                  {/* Card Elétrica e Carregadores EV */}
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
+                    <div className="h-52 overflow-hidden">
+                      <img
+                        src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80"
+                        alt="Carregador para Veículo Elétrico"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Car size={20} className="text-[#FFD700]"/>
+                        <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Elétrica & EV</span>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Instalação Elétrica & Carregadores EV</h3>
+                      <p className="text-gray-400 text-sm">Instalação de carregadores para veículos elétricos (Wallbox e estações públicas), instalações elétricas residenciais e prediais, inspeções técnicas e laudos elétricos com total segurança e conformidade às normas ABNT.</p>
                     </div>
                   </motion.div>
 
