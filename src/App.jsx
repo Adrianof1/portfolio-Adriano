@@ -35,7 +35,6 @@ const services = [
   "⚡ Assessoria e Negociação de Financiamento junto aos Bancos",
   "💧 Bombeamento Solar Off-grid para Poços Artesianos e Semiartesianos",
   "💧 Bombas Submersas e de Superfície com Energia Solar",
-  "💧 Purificação e Tratamento de Água por UV — Água Limpa Sem Bactérias",
   "🌵 Soluções Energéticas para Zonas Rurais e Remotas Sem Rede Elétrica",
   "🌵 Eletrificação Rural Off-grid — Casas, Sítios e Fazendas",
   "🔌 Instalação de Carregadores para Veículos Elétricos (EV)",
@@ -243,7 +242,7 @@ function App() {
                         <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Bombeamento & Zonas Remotas</span>
                       </div>
                       <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Bombeamento Solar & Eletrificação Rural</h3>
-                      <p className="text-gray-400 text-sm">Sistemas de bombeamento off-grid para poços artesianos e semiartesianos — bombas submersas e de superfície movidas a energia solar. Purificação de água por UV (sem bactérias). Eletrificação completa de sítios, fazendas e comunidades rurais sem acesso à rede elétrica.</p>
+                      <p className="text-gray-400 text-sm">Sistemas de bombeamento off-grid para poços artesianos e semiartesianos — bombas submersas e de superfície movidas a energia solar. Eletrificação completa de sítios, fazendas e comunidades rurais sem acesso à rede elétrica.</p>
                     </div>
                   </motion.div>
 
