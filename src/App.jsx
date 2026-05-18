@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Linkedin, MessageCircle, ExternalLink, ShieldCheck, Code2, Server, Smartphone, Github, ArrowDown, Zap, Sun, Wrench } from "lucide-react";
+import { Linkedin, MessageCircle, ExternalLink, ShieldCheck, Code2, Server, Smartphone, Github, ArrowDown, Zap, Sun, Wrench, Camera } from "lucide-react";
 import Intro from "./components/Intro";
 import HackerText from "./components/HackerText";
 
@@ -35,6 +35,10 @@ const services = [
   "⚡ Assessoria e Negociação de Financiamento junto aos Bancos",
   "🏠 Automação Residencial Inteligente",
   "🏢 Automação Industrial e Empresarial",
+  "📷 Instalação de Câmeras de Segurança (CFTV)",
+  "⚡ Cercas Elétricas e Alarmes",
+  "🔔 Interfones e Controle de Acesso",
+  "🚪 Motores Elétricos para Portões e Cancelas",
   "💻 Desenvolvimento Web (React, Next.js, Node.js, Python)",
   "💻 Automação de Processos e Integrações",
   "🛠️ Montagem e Manutenção de Hardware",
@@ -204,9 +208,28 @@ function App() {
                     </div>
                   </motion.div>
 
+                  {/* Card Segurança Eletrônica */}
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
+                    <div className="h-52 overflow-hidden">
+                      <img
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Segurança Eletrônica"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Camera size={20} className="text-[#FFD700]"/>
+                        <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Segurança Eletrônica</span>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Segurança & Controle de Acesso</h3>
+                      <p className="text-gray-400 text-sm">Instalação de câmeras CFTV, cercas elétricas, alarmes, interfones, motores elétricos para portões e cancelas — proteção completa para residências e empresas.</p>
+                    </div>
+                  </motion.div>
+
                   {/* Card Hardware */}
-                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all md:col-span-2">
-                    <div className="p-6 flex flex-col md:flex-row items-start gap-4">
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.4}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
+                    <div className="p-6 flex flex-col items-start gap-4 h-full">
                       <div className="flex-shrink-0 p-3 bg-black rounded-xl border border-white/10">
                         <Wrench size={28} className="text-[#FFD700]"/>
                       </div>
