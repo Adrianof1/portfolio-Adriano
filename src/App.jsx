@@ -57,6 +57,17 @@ const projects = [
 ];
 
 
+const partners = [
+  { name: "WEG",             area: "Motores & Automação",          status: "em breve" },
+  { name: "Intelbras",       area: "Segurança & Telecom",          status: "em breve" },
+  { name: "Fronius",         area: "Inversores Solares",           status: "em breve" },
+  { name: "Growatt",         area: "Inversores & Baterias",        status: "em breve" },
+  { name: "Canadian Solar",  area: "Módulos Fotovoltaicos",        status: "em breve" },
+  { name: "Deye",            area: "Inversores Híbridos",          status: "em breve" },
+  { name: "BYD",             area: "Baterias & Veículos Elétricos",status: "em breve" },
+  { name: "Schneider",       area: "Elétrica & Infraestrutura",    status: "em breve" },
+];
+
 const WHATSAPP   = import.meta.env.VITE_WHATSAPP || "5586999830819";
 const LINKEDIN   = import.meta.env.VITE_LINKEDIN || "https://linkedin.com/in/adrianoferreira-dev";
 const GITHUB_URL = "https://github.com/Adrianof1";
@@ -302,6 +313,53 @@ function App() {
                     </motion.div>
                   ))}
                 </div>
+              </div>
+            </section>
+
+            {/* PARCEIROS */}
+            <section className="py-24 px-4 border-t border-white/10">
+              <div className="max-w-6xl mx-auto">
+                <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-center mb-4">
+                  <h2 className="text-3xl font-bold flex items-center justify-center gap-2">
+                    <Zap className="text-[#FFD700]"/> Parceiros & Integradores
+                  </h2>
+                  <p className="text-gray-500 text-sm mt-3 max-w-xl mx-auto">
+                    A VOLTZ S.I está em processo de credenciamento como integradora oficial das principais marcas do setor. Parcerias confirmadas serão exibidas aqui.
+                  </p>
+                </motion.div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-12">
+                  {partners.map((p, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{opacity:0,scale:0.9}}
+                      whileInView={{opacity:1,scale:1}}
+                      viewport={{once:true}}
+                      transition={{delay:index*0.07}}
+                      className="group relative bg-neutral-900 border border-white/10 rounded-xl p-5 flex flex-col items-center text-center hover:border-[#FFD700]/40 hover:bg-neutral-800 transition-all"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center mb-3 group-hover:bg-[#FFD700]/20 transition-colors">
+                        <Zap size={20} className="text-[#FFD700]"/>
+                      </div>
+                      <span className="font-black text-white text-base tracking-wide">{p.name}</span>
+                      <span className="text-gray-500 text-xs mt-1">{p.area}</span>
+                      <span className="mt-3 text-[10px] font-mono uppercase tracking-widest text-[#FFD700]/50 bg-[#FFD700]/5 border border-[#FFD700]/10 px-2 py-1 rounded-full">
+                        {p.status}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} className="mt-10 text-center">
+                  <a
+                    href={`https://wa.me/${WHATSAPP}?text=Olá! Tenho interesse em parceria com a VOLTZ S.I.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#FFD700]/10 hover:bg-[#FFD700]/20 border border-[#FFD700]/30 text-[#FFD700] px-6 py-3 rounded-lg text-sm font-semibold transition-all"
+                  >
+                    <MessageCircle size={16}/> Quero ser parceiro da VOLTZ S.I
+                  </a>
+                </motion.div>
               </div>
             </section>
 
