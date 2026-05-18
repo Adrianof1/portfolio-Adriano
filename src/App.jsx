@@ -46,16 +46,6 @@ const projects = [
   { title: "IW Decor",           desc: "Catálogo digital imersivo para decoração.",                    tech: ["UI/UX", "React"],    link: "https://iwdecor.netlify.app/",                  type: "Design"    },
 ];
 
-const repos = [
-  { name: "Orcafacil-by-voltzsi",       url: "https://github.com/Adrianof1/Orcafacil-by-voltzsi"       },
-  { name: "Portal PC Pinturas",         url: "https://github.com/Adrianof1/Portal-Pc-pinturas-"         },
-  { name: "Sistema Gestão Adriano",     url: "https://github.com/Adrianof1/sistema-gestao-adriano"      },
-  { name: "Gestão Escolar e Reforço",   url: "https://github.com/Adrianof1/gestaoescolarereforco"       },
-  { name: "Portfólio Original",         url: "https://github.com/Adrianof1/portfolio-Adriano"           },
-  { name: "Site AIPMS",                 url: "https://github.com/Adrianof1/site-aipms"                  },
-  { name: "Landing Page Thais",         url: "https://github.com/Adrianof1/landing-page-thais"          },
-  { name: "Açaí Dois Amores",           url: "https://github.com/Adrianof1/acai_dois_amores"            },
-];
 
 const WHATSAPP   = import.meta.env.VITE_WHATSAPP || "5586999830819";
 const LINKEDIN   = import.meta.env.VITE_LINKEDIN || "https://linkedin.com/in/adrianoferreira-dev";
@@ -251,37 +241,6 @@ function App() {
                       <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-[#FFD700] transition-colors">Acessar <ExternalLink size={14}/></a>
                     </motion.div>
                   ))}
-                </div>
-              </div>
-            </section>
-
-            {/* REPOSITÓRIOS */}
-            <section className="py-24 px-4 border-t border-white/10">
-              <div className="max-w-6xl mx-auto">
-                <motion.h2 initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-3xl font-bold mb-12 flex items-center gap-2">
-                  <Github className="text-[#FFD700]"/> Repositórios Open Source
-                </motion.h2>
-                <div className="flex flex-wrap gap-3 justify-center">
-                  {repos.map((repo, index) => (
-                    <motion.a
-                      key={index}
-                      href={repo.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{opacity:0,scale:0.9}}
-                      whileInView={{opacity:1,scale:1}}
-                      viewport={{once:true}}
-                      transition={{delay:index*0.05}}
-                      className="flex items-center gap-2 bg-neutral-900 border border-white/10 text-gray-300 hover:text-[#FFD700] hover:border-[#FFD700]/50 hover:bg-neutral-800 px-4 py-2 rounded-full text-sm font-medium transition-all"
-                    >
-                      <Github size={14}/>{repo.name}
-                    </motion.a>
-                  ))}
-                </div>
-                <div className="text-center mt-8">
-                  <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-gray-500 hover:text-[#FFD700] text-sm transition-colors">
-                    Ver todos os repositórios <ExternalLink size={14}/>
-                  </a>
                 </div>
               </div>
             </section>
