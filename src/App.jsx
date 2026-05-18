@@ -126,7 +126,15 @@ function App() {
                   & Energias Renováveis
                 </span>
               </span>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <a href="https://voltzsi.com.br/" target="_blank" rel="noopener noreferrer">
+                  <motion.button
+                    whileHover={{ scale: 1.04 }}
+                    className="flex items-center gap-2 bg-transparent border border-[#FFD700]/50 text-[#FFD700] px-4 py-2 rounded-md font-bold text-xs md:text-sm uppercase tracking-wide hover:bg-[#FFD700]/10 transition-colors"
+                  >
+                    <Building2 size={15}/> Site da Empresa
+                  </motion.button>
+                </a>
                 <a href="https://gestao-adriano.vercel.app/" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     animate={{ opacity:[1,0.6,1], scale:[1,1.02,1], boxShadow:["0px 0px 0px rgba(255,215,0,0)","0px 0px 10px rgba(255,215,0,0.5)","0px 0px 0px rgba(255,215,0,0)"] }}
