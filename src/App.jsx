@@ -33,8 +33,10 @@ const services = [
   "⚡ Dimensionamento de Projetos Solares",
   "⚡ Dimensionamento de Bancos de Baterias",
   "⚡ Assessoria e Negociação de Financiamento junto aos Bancos",
+  "🏠 Automação Residencial Inteligente",
+  "🏢 Automação Industrial e Empresarial",
   "💻 Desenvolvimento Web (React, Next.js, Node.js, Python)",
-  "💻 Automação de Processos",
+  "💻 Automação de Processos e Integrações",
   "🛠️ Montagem e Manutenção de Hardware",
 ];
 
@@ -97,8 +99,13 @@ function App() {
           <main>
             {/* NAV */}
             <nav className="fixed top-0 w-full z-40 bg-black/90 backdrop-blur-md border-b border-white/10 px-4 md:px-6 py-3 flex flex-wrap justify-between items-center gap-4">
-              <span className="font-bold text-xl tracking-tighter text-white flex items-center gap-1">
-                VOLTZ<span className="text-[#FFD700]">.SI</span>
+              <span className="flex flex-col leading-none">
+                <span className="font-black text-lg tracking-tight text-white">
+                  VOLTZ <span className="text-[#FFD700]">S.I</span>
+                </span>
+                <span className="text-[10px] font-semibold tracking-widest text-[#FFD700]/70 uppercase">
+                  & Energias Renováveis
+                </span>
               </span>
               <div className="flex items-center gap-4">
                 <a href="https://gestao-adriano.vercel.app/" target="_blank" rel="noopener noreferrer">
