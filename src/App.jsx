@@ -212,7 +212,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
                     <div className="h-52 overflow-hidden">
                       <img
-                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80"
                         alt="Segurança Eletrônica"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
@@ -229,7 +229,14 @@ function App() {
 
                   {/* Card Hardware */}
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.4}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
-                    <div className="p-6 flex flex-col items-start gap-4 h-full">
+                    <div className="h-52 overflow-hidden">
+                      <img
+                        src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80"
+                        alt="Manutenção de Hardware"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-6 flex flex-col items-start gap-4">
                       <div className="flex-shrink-0 p-3 bg-black rounded-xl border border-white/10">
                         <Wrench size={28} className="text-[#FFD700]"/>
                       </div>
