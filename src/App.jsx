@@ -31,8 +31,11 @@ const services = [
   "⚡ Sistemas Fotovoltaicos On-grid e Off-grid",
   "⚡ Instalação de Sistemas Híbridos",
   "⚡ Dimensionamento de Projetos Solares",
+  "⚡ Ampliação e Repotenciação de Sistemas Existentes",
   "⚡ Dimensionamento de Bancos de Baterias",
   "⚡ Assessoria e Negociação de Financiamento junto aos Bancos",
+  "🧹 Limpeza e Manutenção Preventiva de Painéis Solares",
+  "🔄 Troca e Upgrade de Placas, Inversores e Controladores",
   "💧 Bombeamento Solar Off-grid para Poços Artesianos e Semiartesianos",
   "💧 Bombas Submersas e de Superfície com Energia Solar",
   "🌵 Soluções Energéticas para Zonas Rurais e Remotas Sem Rede Elétrica",
@@ -204,7 +207,7 @@ function App() {
                         <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Energias Renováveis</span>
                       </div>
                       <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Energia Solar Fotovoltaica</h3>
-                      <p className="text-gray-400 text-sm">Projetos completos On-grid, Off-grid e Híbridos. Dimensionamento de sistemas e bancos de baterias, com suporte total na negociação de financiamentos bancários.</p>
+                      <p className="text-gray-400 text-sm">Projetos completos On-grid, Off-grid e Híbridos. Dimensionamento, ampliação e repotenciação de sistemas existentes. Limpeza e manutenção preventiva de painéis. Troca e upgrade de placas, inversores e controladores de carga. Suporte total na negociação de financiamentos bancários.</p>
                     </div>
                   </motion.div>
 
