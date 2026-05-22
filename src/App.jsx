@@ -139,7 +139,7 @@ function App() {
                     whileHover={{ scale: 1.04 }}
                     className="flex items-center gap-2 bg-transparent border border-[#FFD700]/50 text-[#FFD700] px-4 py-2 rounded-md font-bold text-xs md:text-sm uppercase tracking-wide hover:bg-[#FFD700]/10 transition-colors"
                   >
-                    <ExternalLink size={14}/> OrçaFácil
+                    <ExternalLink size={14}/> Cliente OrçaFácil
                   </motion.button>
                 </a>
                 <a href="https://gestao-adriano.vercel.app/" target="_blank" rel="noopener noreferrer">
