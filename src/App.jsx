@@ -31,8 +31,11 @@ const services = [
   "⚡ Sistemas Fotovoltaicos On-grid e Off-grid",
   "⚡ Instalação de Sistemas Híbridos",
   "⚡ Dimensionamento de Projetos Solares",
+  "⚡ Ampliação e Repotenciação de Sistemas Existentes",
   "⚡ Dimensionamento de Bancos de Baterias",
   "⚡ Assessoria e Negociação de Financiamento junto aos Bancos",
+  "🧹 Limpeza e Manutenção Preventiva de Painéis Solares",
+  "🔄 Troca e Upgrade de Placas, Inversores e Controladores",
   "💧 Bombeamento Solar Off-grid para Poços Artesianos e Semiartesianos",
   "💧 Bombas Submersas e de Superfície com Energia Solar",
   "🌵 Soluções Energéticas para Zonas Rurais e Remotas Sem Rede Elétrica",
@@ -130,7 +133,15 @@ function App() {
                   & Energias Renováveis
                 </span>
               </span>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <a href="https://orcafacil.voltzsi.com.br/" target="_blank" rel="noopener noreferrer">
+                  <motion.button
+                    whileHover={{ scale: 1.04 }}
+                    className="flex items-center gap-2 bg-transparent border border-[#FFD700]/50 text-[#FFD700] px-4 py-2 rounded-md font-bold text-xs md:text-sm uppercase tracking-wide hover:bg-[#FFD700]/10 transition-colors"
+                  >
+                    <ExternalLink size={14}/> OrçaFácil
+                  </motion.button>
+                </a>
                 <a href="https://gestao-adriano.vercel.app/" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     animate={{ opacity:[1,0.6,1], scale:[1,1.02,1], boxShadow:["0px 0px 0px rgba(255,215,0,0)","0px 0px 10px rgba(255,215,0,0.5)","0px 0px 0px rgba(255,215,0,0)"] }}
@@ -204,7 +215,7 @@ function App() {
                         <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Energias Renováveis</span>
                       </div>
                       <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Energia Solar Fotovoltaica</h3>
-                      <p className="text-gray-400 text-sm">Projetos completos On-grid, Off-grid e Híbridos. Dimensionamento de sistemas e bancos de baterias, com suporte total na negociação de financiamentos bancários.</p>
+                      <p className="text-gray-400 text-sm">Projetos completos On-grid, Off-grid e Híbridos. Dimensionamento, ampliação e repotenciação de sistemas existentes. Limpeza e manutenção preventiva de painéis. Troca e upgrade de placas, inversores e controladores de carga. Suporte total na negociação de financiamentos bancários.</p>
                     </div>
                   </motion.div>
 
@@ -231,7 +242,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
                     <div className="h-52 overflow-hidden">
                       <img
-                        src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80"
+                        src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80"
                         alt="Bombeamento Solar e Zonas Remotas"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
