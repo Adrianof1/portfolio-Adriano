@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VOLTZ S.I — Soluções Integradas & Energias Renováveis</title>
+  <meta name="description" content="VOLTZ Soluções Integradas e Energias Renováveis — Energia solar, instalações elétricas, bombeamento solar, segurança eletrônica, automação, carregadores EV e desenvolvimento de software no Piauí."/>
+  <meta property="og:title" content="VOLTZ S.I — Soluções Integradas & Energias Renováveis"/>
+  <meta property="og:description" content="Energia, tecnologia e segurança em uma única empresa."/>
+  <meta property="og:type" content="website"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:     #FFD700;
+      --gold-10:  rgba(255,215,0,0.10);
+      --gold-20:  rgba(255,215,0,0.20);
+      --gold-40:  rgba(255,215,0,0.40);
+      --bg:       #050505;
+      --bg2:      #0d0d0d;
+      --bg3:      #111111;
+      --border:   rgba(255,255,255,0.07);
+      --text:     #e2e2e2;
+      --muted:    #5a5a5a;
+      --muted2:   #888;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(5,5,5,0.94); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand .top { font-size: 1.15rem; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+    .nav-brand .top span { color: var(--gold); }
+    .nav-brand .sub { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,215,0,0.55); }
+    .nav-links { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 8px; font-size: 0.72rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      white-space: nowrap; transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .nav-btn-outline { border: 1px solid var(--gold-40); color: var(--gold); background: transparent; }
+    .nav-btn-outline:hover { background: var(--gold-10); }
+    .nav-btn-solid { background: var(--gold); color: #000; animation: nav-pulse 2.5s ease-in-out infinite; }
+    .nav-btn-solid:hover { background: #ffe433; transform: scale(1.03); }
+    @keyframes nav-pulse {
+      0%,100% { box-shadow: 0 0 0 rgba(255,215,0,0); }
+      50%      { box-shadow: 0 0 14px rgba(255,215,0,0.4); }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 110px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(128,128,128,0.055) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(128,128,128,0.055) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero-glow {
+      position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px; pointer-events: none;
+      background: radial-gradient(ellipse, rgba(255,215,0,0.07) 0%, transparent 70%);
+    }
+    .hero-logo {
+      width: 100px; height: 100px; border-radius: 22px;
+      background: var(--gold-10); border: 1.5px solid var(--gold-40);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px; position: relative; z-index: 1;
+      animation: float 4s ease-in-out infinite;
+    }
+    .hero-logo::after {
+      content: ''; position: absolute; inset: -10px;
+      background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, transparent 65%);
+      border-radius: 30px; z-index: -1;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+    .hero-tag { font-family: monospace; font-size: 0.7rem; color: var(--gold); letter-spacing: 0.18em; margin-bottom: 18px; position: relative; z-index: 1; }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6.5vw, 5rem); font-weight: 900;
+      line-height: 1.0; letter-spacing: -1.5px; color: #fff;
+      margin-bottom: 10px; position: relative; z-index: 1;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub { font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--muted2); max-width: 580px; line-height: 1.65; margin: 0 auto 14px; position: relative; z-index: 1; }
+    .hero-sub2 { font-size: 0.82rem; color: var(--muted); margin-bottom: 40px; position: relative; z-index: 1; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 64px; position: relative; z-index: 1; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: #000; padding: 14px 28px;
+      border-radius: 10px; font-size: 0.95rem; font-weight: 900;
+      transition: all 0.2s;
+    }
+    .btn-wa:hover { background: #ffe433; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,215,0,0.35); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border); color: var(--text);
+      padding: 14px 28px; border-radius: 10px; font-size: 0.95rem; font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold-40); color: var(--gold); background: var(--gold-10); }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; position: relative; z-index: 1; }
+    .stat-num { font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1; }
+    .stat-lbl { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px; }
+
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      background: var(--gold); padding: 13px 0; overflow: hidden;
+      border-top: 1px solid rgba(200,160,0,0.3);
+      border-bottom: 1px solid rgba(200,160,0,0.3);
+    }
+    .marquee-track { display: inline-flex; white-space: nowrap; animation: scroll 55s linear infinite; }
+    .marquee-track span { font-size: 0.82rem; font-weight: 800; color: #002244; margin: 0 28px; text-transform: uppercase; letter-spacing: 0.04em; }
+    @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ─── SECTIONS ─── */
+    .section { padding: 88px 24px; }
+    .section-dark { background: rgba(0,0,0,0.45); border-top: 1px solid var(--border); }
+    .wrap { max-width: 1180px; margin: 0 auto; }
+    .sec-head { text-align: center; margin-bottom: 52px; }
+    .sec-head h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 900; color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .sec-head h2 .ico { color: var(--gold); }
+    .sec-head p { color: var(--muted2); margin-top: 10px; font-size: 0.9rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+    /* ─── SPECIALTY CARDS ─── */
+    .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, background 0.3s;
+    }
+    .card:hover { border-color: var(--gold-40); transform: translateY(-4px); background: var(--bg3); }
+    .card-img-box { overflow: hidden; height: 190px; }
+    .card-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .card:hover .card-img-box img { transform: scale(1.06); }
+    .card-body { padding: 22px; }
+    .card-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.65rem; font-family: monospace; text-transform: uppercase; letter-spacing: 0.1em;
+      background: #000; border: 1px solid var(--border); color: var(--muted2);
+      padding: 3px 10px; border-radius: 6px; margin-bottom: 10px;
+    }
+    .card-tag .dot { color: var(--gold); }
+    .card-body h3 { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 8px; transition: color 0.2s; }
+    .card:hover .card-body h3 { color: var(--gold); }
+    .card-body p { font-size: 0.82rem; color: var(--muted2); line-height: 1.65; }
+
+    /* ─── SERVICE LIST ─── */
+    .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 10px; }
+    .svc {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .svc:hover { border-color: rgba(255,215,0,0.25); background: var(--bg3); }
+    .svc-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+    .svc strong { display: block; font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .svc span { font-size: 0.76rem; color: var(--muted2); line-height: 1.5; }
+
+    /* ─── PARTNER CARDS ─── */
+    .partner {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px 16px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      transition: border-color 0.3s, transform 0.3s, background 0.3s;
+    }
+    .partner:hover { border-color: var(--gold-40); transform: translateY(-3px); background: var(--bg3); }
+    .partner-ico {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: var(--gold-10); border: 1px solid rgba(255,215,0,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 12px;
+      transition: background 0.3s;
+    }
+    .partner:hover .partner-ico { background: var(--gold-20); }
+    .partner-name { font-size: 0.95rem; font-weight: 900; color: #fff; }
+    .partner-area { font-size: 0.7rem; color: var(--muted2); margin-top: 4px; }
+    .badge-soon {
+      margin-top: 10px; font-size: 0.58rem; font-family: monospace;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: rgba(255,215,0,0.45); background: rgba(255,215,0,0.04);
+      border: 1px solid rgba(255,215,0,0.12); padding: 3px 10px; border-radius: 20px;
+    }
+
+    /* ─── SYSTEMS ─── */
+    .sys-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .sys-card:hover { border-color: var(--gold-40); background: var(--bg3); transform: translateY(-3px); }
+    .sys-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .sys-icon { padding: 10px; background: #000; border-radius: 10px; border: 1px solid var(--border); font-size: 1.2rem; }
+    .sys-type { font-size: 0.65rem; font-family: monospace; color: var(--muted); background: #000; border: 1px solid var(--border); padding: 3px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .sys-card h3 { font-size: 1.3rem; font-weight: 800; color: #fff; transition: color 0.2s; }
+    .sys-card:hover h3 { color: var(--gold); }
+    .sys-card p { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; }
+    .sys-techs { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sys-tech { font-size: 0.68rem; font-family: monospace; background: #000; border: 1px solid var(--border); color: var(--muted2); padding: 3px 10px; border-radius: 6px; }
+    .sys-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: #fff; transition: color 0.2s; }
+    .sys-link:hover { color: var(--gold); }
+
+    /* ─── CTA BOX ─── */
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg2), var(--bg3));
+      border: 1px solid rgba(255,215,0,0.18);
+      border-radius: 20px; padding: 60px 40px;
+      text-align: center; max-width: 720px; margin: 0 auto;
+    }
+    .cta-box h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; color: #fff; margin-bottom: 12px; }
+    .cta-box h2 span { color: var(--gold); }
+    .cta-box p { color: var(--muted2); font-size: 0.92rem; line-height: 1.65; margin-bottom: 32px; }
+    .cta-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #000; border-top: 1px solid var(--border);
+      padding: 44px 24px; text-align: center;
+    }
+    .foot-logo { font-size: 1.1rem; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+    .foot-by { font-size: 0.78rem; color: var(--muted); margin-bottom: 22px; }
+    .foot-links { display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; margin-bottom: 20px; }
+    .foot-links a { font-size: 0.8rem; color: var(--muted2); transition: color 0.2s; }
+    .foot-links a:hover { color: var(--gold); }
+    .foot-copy { font-size: 0.68rem; color: #2a2a2a; }
+
+    /* ─── FADE-IN ─── */
+    .fu { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fu.on { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:640px){
+      nav { padding: 0 16px; }
+      .nav-btn span { display: none; }
+      .cta-box { padding: 36px 20px; }
+      .hero h1 { letter-spacing: -0.5px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-brand">
+    <div class="top">VOLTZ <span>S.I</span></div>
+    <div class="sub">& Energias Renováveis</div>
+  </div>
+  <div class="nav-links">
+    <a href="https://orcafacil.voltzsi.com.br/" target="_blank" class="nav-btn nav-btn-outline">
+      <span>Cliente OrçaFácil</span>
+    </a>
+    <a href="https://wa.me/5586999830819?text=Olá! Vim pelo site da VOLTZ S.I e gostaria de um orçamento." target="_blank" class="nav-btn nav-btn-solid">
+      &#128172; <span>Orçamento</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="58" height="58">
+      <polygon points="4,5 26,5 52,95 36,95" fill="#FFD700"/>
+      <path d="M54,5 L42,52 L56,52 L40,95 L52,95 L76,5 Z" fill="#FFD700"/>
+    </svg>
+  </div>
+
+  <div class="hero-tag">&lt; empresa_online /&gt;</div>
+
+  <h1>VOLTZ <span>S.I</span><br/>Soluções Integradas</h1>
+
+  <p class="hero-sub">
+    Energia solar, instalações elétricas, bombeamento off-grid, segurança eletrônica, automação, carregadores EV e desenvolvimento de software.
+  </p>
+  <p class="hero-sub2">Piauí • Brasil — Residencial, Comercial e Industrial</p>
+
+  <div class="hero-ctas">
+    <a href="https://wa.me/5586999830819?text=Olá! Gostaria de solicitar um orçamento." target="_blank" class="btn-wa">
+      &#128172; Solicitar Orçamento
+    </a>
+    <a href="#especialidades" class="btn-ghost">&#9881; Ver Especialidades</a>
+    <a href="#contato" class="btn-ghost">&#128222; Falar Conosco</a>
+  </div>
+
+  <div class="hero-stats">
+    <div><div class="stat-num">10+</div><div class="stat-lbl">Especialidades</div></div>
+    <div><div class="stat-num">360°</div><div class="stat-lbl">Soluções Completas</div></div>
+    <div><div class="stat-num">2</div><div class="stat-lbl">Sistemas em Produção</div></div>
+    <div><div class="stat-num">PI</div><div class="stat-lbl">Estado do Piauí</div></div>
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track" aria-hidden="true">
+    <span>⚡ Sistemas Fotovoltaicos On-grid e Off-grid</span>
+    <span>⚡ Instalação de Sistemas Híbridos</span>
+    <span>⚡ Dimensionamento de Projetos Solares</span>
+    <span>⚡ Ampliação e Repotenciação de Sistemas Existentes</span>
+    <span>🧹 Limpeza e Manutenção Preventiva de Painéis</span>
+    <span>🔄 Troca e Upgrade de Placas, Inversores e Controladores</span>
+    <span>💧 Bombeamento Solar Off-grid para Poços Artesianos</span>
+    <span>💧 Bombas Submersas e de Superfície com Energia Solar</span>
+    <span>🌵 Eletrificação Rural Off-grid — Sítios e Fazendas</span>
+    <span>🔌 Instalação de Carregadores para Veículos Elétricos (EV)</span>
+    <span>🔌 Inspeção e Laudo Técnico de Instalações Elétricas</span>
+    <span>🏠 Instalação Elétrica Residencial</span>
+    <span>🏢 Instalação Elétrica Predial e Comercial</span>
+    <span>🏠 Automação Residencial Inteligente</span>
+    <span>🏢 Automação Industrial e Empresarial</span>
+    <span>📷 Câmeras de Segurança CFTV</span>
+    <span>⚡ Cercas Elétricas e Alarmes</span>
+    <span>🔔 Interfones e Controle de Acesso</span>
+    <span>🚪 Motores Elétricos para Portões e Cancelas</span>
+    <span>💻 Desenvolvimento Web e Sistemas Digitais</span>
+    <span>🛠️ Montagem e Manutenção de Hardware</span>
+    <!-- duplicate for seamless loop -->
+    <span>⚡ Sistemas Fotovoltaicos On-grid e Off-grid</span>
+    <span>⚡ Instalação de Sistemas Híbridos</span>
+    <span>⚡ Dimensionamento de Projetos Solares</span>
+    <span>⚡ Ampliação e Repotenciação de Sistemas Existentes</span>
+    <span>🧹 Limpeza e Manutenção Preventiva de Painéis</span>
+    <span>🔄 Troca e Upgrade de Placas, Inversores e Controladores</span>
+    <span>💧 Bombeamento Solar Off-grid para Poços Artesianos</span>
+    <span>💧 Bombas Submersas e de Superfície com Energia Solar</span>
+    <span>🌵 Eletrificação Rural Off-grid — Sítios e Fazendas</span>
+    <span>🔌 Instalação de Carregadores para Veículos Elétricos (EV)</span>
+    <span>🔌 Inspeção e Laudo Técnico de Instalações Elétricas</span>
+    <span>🏠 Instalação Elétrica Residencial</span>
+    <span>🏢 Instalação Elétrica Predial e Comercial</span>
+    <span>🏠 Automação Residencial Inteligente</span>
+    <span>🏢 Automação Industrial e Empresarial</span>
+    <span>📷 Câmeras de Segurança CFTV</span>
+    <span>⚡ Cercas Elétricas e Alarmes</span>
+    <span>🔔 Interfones e Controle de Acesso</span>
+    <span>🚪 Motores Elétricos para Portões e Cancelas</span>
+    <span>💻 Desenvolvimento Web e Sistemas Digitais</span>
+    <span>🛠️ Montagem e Manutenção de Hardware</span>
+  </div>
+</div>
+
+<!-- ═══ ESPECIALIDADES ═══ -->
+<section class="section section-dark" id="especialidades">
+  <div class="wrap">
+    <div class="sec-head fu">
+      <h2><span class="ico">⚡</span> Nossas Especialidades</h2>
+      <p>Soluções completas para residências, empresas, fazendas e indústrias.</p>
+    </div>
+    <div class="grid2">
+
+      <div class="card fu">
+        <div class="card-img-box">
+          <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80" alt="Energia Solar"/>
+        </div>
+        <div class="card-body">
+          <div class="card-tag"><span class="dot">●</span> Energias Renováveis</div>
+          <h3>Energia Solar Fotovoltaica</h3>
+          <p>Projetos completos On-grid, Off-grid e Híbridos. Dimensionamento, ampliação e repotenciação de sistemas. Limpeza e manutenção preventiva de painéis. Troca e upgrade de placas, inversores e controladores. Assessoria para financiamentos bancários.</p>
+        </div>
+      </div>
+
+      <div class="card fu">
+        <div class="card-img-box">
+          <img src="https://images.unsplash.com/photo-1548337138-e87d889cc369?w=800&q=80" alt="Bombeamento Solar"/>
+        </div>
+        <div class="card-body">
+          <div class="card-tag"><span class="dot">●</span> Bombeamento & Zonas Remotas</div>
+          <h3>Bombeamento Solar & Eletrificação Rural</h3>
+          <p>Sistemas de bombeamento off-grid para poços artesianos e semiartesianos — bombas submersas e de superfície movidas a energia solar. Eletrificação completa de sítios, fazendas e comunidades rurais sem acesso à rede elétrica.</p>
+        </div>
+      </div>
+
+      <div class="card fu">
+        <div class="card-img-box">
+          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80" alt="Carregadores EV"/>
+        </div>
+        <div class="card-body">
+          <div class="card-tag"><span class="dot">●</span> Elétrica & EV</div>
+          <h3>Instalação Elétrica & Carregadores EV</h3>
+          <p>Instalação de carregadores Wallbox e estações EV, instalações elétricas residenciais e prediais, inspeções técnicas e laudos elétricos conforme normas ABNT.</p>
+        </div>
+      </div>
+
+      <div class="card fu">
+        <div class="card-img-box">
+          <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80" alt="Segurança Eletrônica"/>
+        </div>
+        <div class="card-body">
+          <div class="card-tag"><span class="dot">●</span> Segurança Eletrônica</div>
+          <h3>Segurança & Controle de Acesso</h3>
+          <p>Instalação de câmeras CFTV, cercas elétricas, alarmes, interfones, motores elétricos para portões e cancelas — proteção completa para residências e empresas.</p>
+        </div>
+      </div>
+
+      <div class="card fu">
+        <div class="card-img-box">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="Software"/>
+        </div>
+        <div class="card-body">
+          <div class="card-tag"><span class="dot">●</span> Engenharia de Software</div>
+          <h3>Desenvolvimento Web & TI</h3>
+          <p>Sistemas Full-Stack modernos, plataformas de gestão, landing pages de alta conversão, automação de processos e infraestrutura de TI — React, Next.js, Node.js e Python.</p>
+        </div>
+      </div>
+
+      <div class="card fu">
+        <div class="card-img-box">
+          <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80" alt="Hardware"/>
+        </div>
+        <div class="card-body">
+          <div class="card-tag"><span class="dot">●</span> Hardware & Suporte</div>
+          <h3>Montagem e Manutenção de Hardware</h3>
+          <p>Montagem personalizada de computadores, manutenção preventiva e corretiva, upgrades de performance e suporte técnico completo para empresas e usuários.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LISTA DE SERVIÇOS ═══ -->
+<section class="section" id="servicos">
+  <div class="wrap">
+    <div class="sec-head fu">
+      <h2><span class="ico">🛠️</span> Todos os Serviços</h2>
+      <p>Tudo que a VOLTZ S.I oferece para você, sua empresa ou propriedade.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc fu"><div class="svc-icon">⚡</div><div><strong>Sistemas Fotovoltaicos On-grid</strong><span>Conexão à rede elétrica com geração própria e redução na conta de luz.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🔋</div><div><strong>Sistemas Off-grid e Híbridos</strong><span>Independência energética com baterias e backup para qualquer situação.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">📐</div><div><strong>Dimensionamento de Projetos Solares</strong><span>Cálculo preciso para o sistema ideal ao seu consumo e orçamento.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">📈</div><div><strong>Ampliação e Repotenciação Solar</strong><span>Aumento de capacidade em sistemas já instalados com novo projeto técnico.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🧹</div><div><strong>Limpeza e Manutenção de Painéis</strong><span>Manutenção preventiva para garantir máxima eficiência e vida útil dos módulos.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🔄</div><div><strong>Troca e Upgrade de Equipamentos</strong><span>Substituição de placas, inversores e controladores por modelos mais modernos.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🏦</div><div><strong>Assessoria para Financiamento Solar</strong><span>Negociação e suporte completo junto aos bancos para viabilizar seu projeto.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">💧</div><div><strong>Bombeamento Solar para Poços</strong><span>Bombas submersas e de superfície off-grid para poços artesianos e semiartesianos.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🌵</div><div><strong>Eletrificação Rural Off-grid</strong><span>Energia solar para sítios, fazendas e comunidades sem acesso à rede elétrica.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🔌</div><div><strong>Carregadores para Veículos Elétricos</strong><span>Wallbox residencial e estações de recarga empresariais com instalação completa.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">📋</div><div><strong>Inspeção e Laudo Técnico Elétrico</strong><span>Laudos com ART para conformidade com normas ABNT e seguradoras.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🏠</div><div><strong>Instalação Elétrica Residencial</strong><span>Instalações novas, reformas, troca de quadros e pontos elétricos.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🏢</div><div><strong>Instalação Elétrica Predial e Comercial</strong><span>Projetos elétricos para comércios, escritórios e condomínios.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🏠</div><div><strong>Automação Residencial Inteligente</strong><span>Controle de iluminação, climatização e dispositivos pelo celular.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🏭</div><div><strong>Automação Industrial e Empresarial</strong><span>Processos automáticos, integração de sistemas e controle industrial.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">📷</div><div><strong>Câmeras de Segurança CFTV</strong><span>Monitoramento 24h com acesso remoto pelo celular.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">⚡</div><div><strong>Cercas Elétricas e Alarmes</strong><span>Proteção perimetral com cercas elétricas, alarmes e sensores.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🔔</div><div><strong>Interfones e Controle de Acesso</strong><span>Porteiros eletrônicos, fechaduras digitais e controle de entrada.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🚪</div><div><strong>Motores Elétricos para Portões</strong><span>Instalação e manutenção de portões automáticos e cancelas.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">💻</div><div><strong>Desenvolvimento Web e Sistemas</strong><span>Sites, sistemas de gestão, landing pages e plataformas digitais.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🛠️</div><div><strong>Montagem e Manutenção de Hardware</strong><span>Computadores personalizados, upgrades e suporte técnico completo.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PARCEIROS ═══ -->
+<section class="section section-dark" id="parceiros">
+  <div class="wrap">
+    <div class="sec-head fu">
+      <h2><span class="ico">🤝</span> Parceiros & Integradores</h2>
+      <p>Em processo de credenciamento como integradora oficial das principais marcas do setor.</p>
+    </div>
+    <div class="grid4">
+      <div class="partner fu"><div class="partner-ico">⚡</div><div class="partner-name">WEG</div><div class="partner-area">Motores & Automação</div><div class="badge-soon">em breve</div></div>
+      <div class="partner fu"><div class="partner-ico">📷</div><div class="partner-name">Intelbras</div><div class="partner-area">Segurança & Telecom</div><div class="badge-soon">em breve</div></div>
+      <div class="partner fu"><div class="partner-ico">☀️</div><div class="partner-name">Fronius</div><div class="partner-area">Inversores Solares</div><div class="badge-soon">em breve</div></div>
+      <div class="partner fu"><div class="partner-ico">🔋</div><div class="partner-name">Growatt</div><div class="partner-area">Inversores & Baterias</div><div class="badge-soon">em breve</div></div>
+      <div class="partner fu"><div class="partner-ico">🌞</div><div class="partner-name">Canadian Solar</div><div class="partner-area">Módulos Fotovoltaicos</div><div class="badge-soon">em breve</div></div>
+      <div class="partner fu"><div class="partner-ico">⚡</div><div class="partner-name">Deye</div><div class="partner-area">Inversores Híbridos</div><div class="badge-soon">em breve</div></div>
+      <div class="partner fu"><div class="partner-ico">🚗</div><div class="partner-name">BYD</div><div class="partner-area">Baterias & EV</div><div class="badge-soon">em breve</div></div>
+      <div class="partner fu"><div class="partner-ico">🔧</div><div class="partner-name">Schneider</div><div class="partner-area">Elétrica & Infraestrutura</div><div class="badge-soon">em breve</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SISTEMAS ═══ -->
+<section class="section" id="sistemas">
+  <div class="wrap">
+    <div class="sec-head fu">
+      <h2><span class="ico">💻</span> Sistemas Digitais em Produção</h2>
+      <p>Plataformas desenvolvidas pela VOLTZ S.I já em funcionamento.</p>
+    </div>
+    <div class="grid2">
+      <div class="sys-card fu">
+        <div class="sys-card-top">
+          <div class="sys-icon">📊</div>
+          <div class="sys-type">Sistema</div>
+        </div>
+        <h3>OrçaFácil</h3>
+        <p>Plataforma completa de gestão e orçamentos para empresas. Criação de propostas, controle de clientes e histórico de serviços.</p>
+        <div class="sys-techs">
+          <span class="sys-tech">React</span>
+          <span class="sys-tech">Node.js</span>
+          <span class="sys-tech">MongoDB</span>
+        </div>
+        <a href="https://orcafacil.voltzsi.com.br/" target="_blank" class="sys-link">Acessar sistema ↗</a>
+      </div>
+      <div class="sys-card fu">
+        <div class="sys-card-top">
+          <div class="sys-icon">👤</div>
+          <div class="sys-type">Portfólio</div>
+        </div>
+        <h3>Portfólio Dev</h3>
+        <p>Portfólio técnico do desenvolvedor responsável pela VOLTZ S.I — projetos, tecnologias e histórico de trabalhos em TI.</p>
+        <div class="sys-techs">
+          <span class="sys-tech">React</span>
+          <span class="sys-tech">Vite</span>
+          <span class="sys-tech">Tailwind</span>
+        </div>
+        <a href="https://portfolioadriano.voltzsi.com.br/" target="_blank" class="sys-link">Acessar portfólio ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA / CONTATO ═══ -->
+<section class="section section-dark" id="contato">
+  <div class="wrap">
+    <div class="cta-box fu">
+      <h2>Vamos começar o seu<br/>projeto com a <span>VOLTZ S.I</span>?</h2>
+      <p>Entre em contato agora mesmo. Atendemos residências, empresas, fazendas e indústrias em todo o Piauí e região. Orçamento gratuito e sem compromisso.</p>
+      <div class="cta-links">
+        <a href="https://wa.me/5586999830819?text=Olá! Gostaria de solicitar um orçamento pela VOLTZ S.I." target="_blank" class="btn-wa">&#128172; Falar no WhatsApp</a>
+        <a href="https://linkedin.com/in/adrianoferreira-dev" target="_blank" class="btn-ghost">&#128101; LinkedIn</a>
+        <a href="https://orcafacil.voltzsi.com.br/" target="_blank" class="btn-ghost">📊 OrçaFácil</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="foot-logo">VOLTZ Soluções Integradas & Energias Renováveis</div>
+  <div class="foot-by">Piauí • Brasil — CNPJ em abertura</div>
+  <div class="foot-links">
+    <a href="https://wa.me/5586999830819" target="_blank">WhatsApp</a>
+    <a href="https://linkedin.com/in/adrianoferreira-dev" target="_blank">LinkedIn</a>
+    <a href="https://portfolioadriano.voltzsi.com.br/" target="_blank">Portfólio Dev</a>
+    <a href="https://orcafacil.voltzsi.com.br/" target="_blank">OrçaFácil</a>
+    <a href="https://voltzsi.com.br/" target="_blank">voltzsi.com.br</a>
+  </div>
+  <div class="foot-copy">© <span id="yr"></span> VOLTZ S.I. Todos os direitos reservados.</div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
