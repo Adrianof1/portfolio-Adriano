@@ -242,7 +242,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
                     <div className="h-52 overflow-hidden">
                       <img
-                        src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80"
+                        src="https://images.unsplash.com/photo-1548337138-e87d889cc369?w=800&q=80"
                         alt="Bombeamento Solar e Zonas Remotas"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
