@@ -332,7 +332,11 @@
 
   <div class="hero-tag">&lt; empresa_online /&gt;</div>
 
-  <h1>VOLTZ <span>S.I</span><br/>Soluções Integradas<br/><span class="hero-h1-sub">& Energias Renováveis</span></h1>
+  <h1 id="hero-title">
+    <span id="ht-1"></span><br/>
+    <span id="ht-2"></span><br/>
+    <span id="ht-3" class="hero-h1-sub"></span>
+  </h1>
 
   <p class="hero-sub">
     Energia solar, instalações elétricas, bombeamento off-grid, segurança eletrônica, automação, carregadores EV e desenvolvimento de software.
@@ -639,6 +643,52 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ── Hacker Text ── */
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!?';
+
+  function hackerText(el, segments, delay) {
+    const full = segments.map(s => s.text).join('');
+    setTimeout(() => {
+      let iter = 0;
+      const iv = setInterval(() => {
+        let pos = 0, html = '';
+        for (const seg of segments) {
+          for (let i = 0; i < seg.text.length; i++) {
+            const revealed = pos < Math.floor(iter);
+            const ch = revealed
+              ? seg.text[i]
+              : CHARS[Math.floor(Math.random() * CHARS.length)];
+            html += `<span style="color:${revealed ? seg.color : '#FFD700'}">${ch}</span>`;
+            pos++;
+          }
+        }
+        el.innerHTML = html;
+        iter += 0.38;
+        if (iter > full.length) {
+          el.innerHTML = segments.map(s =>
+            `<span style="color:${s.color}">${s.text}</span>`
+          ).join('');
+          clearInterval(iv);
+        }
+      }, 28);
+    }, delay);
+  }
+
+  hackerText(document.getElementById('ht-1'), [
+    { text: 'VOLTZ ', color: '#ffffff' },
+    { text: 'S.I',   color: '#FFD700' }
+  ], 300);
+
+  hackerText(document.getElementById('ht-2'), [
+    { text: 'Soluções Integradas', color: '#ffffff' }
+  ], 600);
+
+  hackerText(document.getElementById('ht-3'), [
+    { text: '& Energias Renováveis', color: 'rgba(255,215,0,0.75)' }
+  ], 950);
+
+  /* ── Fade-up on scroll ── */
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); } });
   }, { threshold: 0.08 });
