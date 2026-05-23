@@ -134,6 +134,14 @@ function App() {
                 </span>
               </span>
               <div className="flex items-center gap-3">
+                <a href="https://voltzsi.com.br/" target="_blank" rel="noopener noreferrer">
+                  <motion.button
+                    whileHover={{ scale: 1.04 }}
+                    className="hidden md:flex items-center gap-2 bg-transparent border border-[#FFD700]/50 text-[#FFD700] px-4 py-2 rounded-md font-bold text-xs uppercase tracking-wide hover:bg-[#FFD700]/10 transition-colors"
+                  >
+                    <Zap size={13}/> Web App VOLTZ S.I
+                  </motion.button>
+                </a>
                 <a href="https://orcafacil.voltzsi.com.br/" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     whileHover={{ scale: 1.04 }}

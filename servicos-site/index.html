@@ -223,6 +223,36 @@
     .sys-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: #fff; transition: color 0.2s; }
     .sys-link:hover { color: var(--gold); }
 
+    /* ─── COLLAB BOX ─── */
+    .collab-box {
+      max-width: 760px; margin: 0 auto; text-align: center;
+      background: var(--bg2); border: 1px solid rgba(255,215,0,0.15);
+      border-radius: 20px; padding: 56px 40px;
+      position: relative; overflow: hidden;
+    }
+    .collab-box::before {
+      content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+      width: 320px; height: 160px; pointer-events: none;
+      background: radial-gradient(ellipse, rgba(255,215,0,0.07) 0%, transparent 70%);
+    }
+    .collab-icon { font-size: 2.4rem; margin-bottom: 18px; }
+    .collab-box h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; color: #fff; margin-bottom: 16px; line-height: 1.15; }
+    .collab-box h2 span { color: var(--gold); }
+    .collab-box p { font-size: 0.9rem; color: var(--muted2); line-height: 1.7; max-width: 560px; margin: 0 auto 28px; }
+    .collab-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
+    .collab-tags span {
+      font-size: 0.72rem; font-weight: 600;
+      background: var(--gold-10); border: 1px solid var(--gold-20);
+      color: rgba(255,215,0,0.8); padding: 5px 14px; border-radius: 20px;
+    }
+    .btn-collab {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: #000;
+      padding: 14px 32px; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 900; transition: all 0.2s;
+    }
+    .btn-collab:hover { background: #ffe433; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,215,0,0.3); }
+
     /* ─── CTA BOX ─── */
     .cta-box {
       background: linear-gradient(135deg, var(--bg2), var(--bg3));
@@ -532,6 +562,38 @@
         </div>
         <a href="https://portfolioadriano.voltzsi.com.br/" target="_blank" class="sys-link">Acessar portfólio ↗</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRABALHA NA ÁREA? ═══ -->
+<section class="section" id="parceria">
+  <div class="wrap">
+    <div class="collab-box fu">
+      <div class="collab-icon">🤜🤛</div>
+      <h2>Trabalha no ramo?<br/><span>Vamos conversar.</span></h2>
+      <p>
+        Eletricista, instalador solar, técnico em segurança eletrônica, desenvolvedor ou qualquer profissional da área —
+        a VOLTZ S.I está sempre aberta a parcerias, indicações e projetos em conjunto.
+        Se você tem habilidade e quer crescer junto, fala com a gente.
+      </p>
+      <div class="collab-tags">
+        <span>⚡ Eletricistas</span>
+        <span>☀️ Instaladores Solares</span>
+        <span>📷 Técnicos em Segurança</span>
+        <span>💻 Desenvolvedores</span>
+        <span>🔧 Técnicos em TI</span>
+        <span>💧 Técnicos em Bombeamento</span>
+        <span>🚗 Instaladores EV</span>
+        <span>🤝 Representantes Comerciais</span>
+      </div>
+      <a
+        href="https://wa.me/5586999830819?text=Olá%20Adriano!%20Trabalho%20na%20área%20e%20gostaria%20de%20conversar%20sobre%20uma%20possível%20parceria%20com%20a%20VOLTZ%20S.I."
+        target="_blank"
+        class="btn-collab"
+      >
+        &#128172; Quero conversar sobre parceria
+      </a>
     </div>
   </div>
 </section>
