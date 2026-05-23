@@ -242,7 +242,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
                     <div className="h-52 overflow-hidden">
                       <img
-                        src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=800&q=80"
+                        src="/bombeamento-solar.jpg"
                         alt="Bombeamento Solar e Zonas Remotas"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
@@ -320,6 +320,11 @@ function App() {
                 </div>
               </div>
             </section>
+
+            {/* AVISO IMAGENS */}
+            <div className="text-center py-3 border-t border-white/5">
+              <p className="text-xs text-gray-600 font-mono">* As imagens utilizadas neste site são meramente ilustrativas.</p>
+            </div>
 
             {/* PROJETOS */}
             <section className="py-24 px-4 bg-black/50 border-t border-white/10">
