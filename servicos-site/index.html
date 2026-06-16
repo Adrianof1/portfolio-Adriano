@@ -272,6 +272,23 @@
     .cta-box p { color: var(--muted2); font-size: 0.92rem; line-height: 1.65; margin-bottom: 32px; }
     .cta-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
+    /* ─── PAGAMENTO ─── */
+    .pagamento-strip {
+      background: #000; border-top: 1px solid var(--border);
+      padding: 20px 24px; text-align: center;
+    }
+    .pagamento-strip p {
+      font-size: 0.72rem; color: #444; margin-bottom: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .pagamento-badges {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    }
+    .pagamento-badges span {
+      font-size: 0.75rem; color: var(--muted2);
+      border: 1px solid #222; border-radius: 6px;
+      padding: 4px 10px; display: flex; align-items: center; gap: 5px;
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background: #000; border-top: 1px solid var(--border);
@@ -626,6 +643,19 @@
     </div>
   </div>
 </section>
+
+<!-- ═══ FORMAS DE PAGAMENTO ═══ -->
+<div class="pagamento-strip">
+  <p>Formas de pagamento</p>
+  <div class="pagamento-badges">
+    <span>💵 Dinheiro</span>
+    <span>🏦 Pix</span>
+    <span>💳 Cartão de Débito</span>
+    <span>💳 Cartão de Crédito</span>
+    <span>🤝 Pagamento Presencial</span>
+    <span>🏛️ Financiamento Bancário</span>
+  </div>
+</div>
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
