@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Linkedin, MessageCircle, ExternalLink, ShieldCheck, Code2, Server, Smartphone, Github, ArrowDown, Zap, Sun, Wrench, Camera, Car, Building2, Droplets } from "lucide-react";
 import Intro from "./components/Intro";
 import HackerText from "./components/HackerText";
@@ -81,10 +81,66 @@ const GITHUB_URL = "https://github.com/Adrianof1";
 
 const marqueeItems = [...services, ...services];
 
+/* ── Componente de card com efeito de inclinação 3D ── */
+function TiltCard({ children, className, maxAngle = 10 }) {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const springX = useSpring(rawX, { stiffness: 300, damping: 30 });
+  const springY = useSpring(rawY, { stiffness: 300, damping: 30 });
+  const rotateX = useTransform(springY, [-1, 1], [maxAngle, -maxAngle]);
+  const rotateY = useTransform(springX, [-1, 1], [-maxAngle, maxAngle]);
+
+  const onMouseMove = useCallback((e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    rawX.set((e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2));
+    rawY.set((e.clientY - rect.top  - rect.height / 2) / (rect.height / 2));
+  }, [rawX, rawY]);
+
+  const onMouseLeave = useCallback(() => {
+    rawX.set(0);
+    rawY.set(0);
+  }, [rawX, rawY]);
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      whileHover={{ scale: 1.03 }}
+      transition={{ scale: { duration: 0.2 } }}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 function App() {
   const [showIntro, setShowIntro] = useState(true);
   const { scrollY }  = useScroll();
   const arrowOpacity = useTransform(scrollY, [0, 150], [1, 0]);
+
+  /* ── Paralaxe 3D do hero: inclina a foto de perfil conforme o mouse move ── */
+  const heroRawX = useMotionValue(0);
+  const heroRawY = useMotionValue(0);
+  const heroSpringX = useSpring(heroRawX, { stiffness: 150, damping: 25 });
+  const heroSpringY = useSpring(heroRawY, { stiffness: 150, damping: 25 });
+  const profileRotateX = useTransform(heroSpringY, [-1, 1], [10, -10]);
+  const profileRotateY = useTransform(heroSpringX, [-1, 1], [-10, 10]);
+
+  const onHeroMouseMove = useCallback((e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    heroRawX.set((e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2));
+    heroRawY.set((e.clientY - rect.top  - rect.height / 2) / (rect.height / 2));
+  }, [heroRawX, heroRawY]);
+
+  const onHeroMouseLeave = useCallback(() => {
+    heroRawX.set(0);
+    heroRawY.set(0);
+  }, [heroRawX, heroRawY]);
 
   /* ╔═══════════════════════════════════════════════════════════╗
    * ║  VOLTZ GUARD — VERIFICAÇÃO  (INÍCIO)                     ║
@@ -158,16 +214,42 @@ function App() {
             </nav>
 
             {/* HERO */}
-            <section className="min-h-screen flex flex-col items-center justify-center px-4 relative pt-20">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+            <section
+              className="min-h-screen flex flex-col items-center justify-center px-4 relative pt-20 overflow-hidden"
+              onMouseMove={onHeroMouseMove}
+              onMouseLeave={onHeroMouseLeave}
+            >
+              {/* Grade de fundo */}
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+
+              {/* Grade de chão em perspectiva 3D */}
+              <div className="perspective-floor" />
+
+              {/* Losangos flutuantes */}
+              <div className="shape-diamond" style={{ top: '14%', left: '9%',  width: '28px', height: '28px', animationDuration: '7s',  animationDelay: '0s'   }} />
+              <div className="shape-diamond" style={{ top: '68%', left: '87%', width: '18px', height: '18px', animationDuration: '9s',  animationDelay: '-3s'  }} />
+              <div className="shape-diamond" style={{ top: '32%', left: '93%', width: '12px', height: '12px', animationDuration: '6s',  animationDelay: '-1s'  }} />
+              <div className="shape-diamond" style={{ top: '78%', left: '5%',  width: '22px', height: '22px', animationDuration: '8s',  animationDelay: '-5s'  }} />
+              <div className="shape-diamond" style={{ top: '50%', left: '2%',  width: '10px', height: '10px', animationDuration: '11s', animationDelay: '-2s'  }} />
+              <div className="shape-diamond" style={{ top: '20%', left: '96%', width: '14px', height: '14px', animationDuration: '10s', animationDelay: '-4s'  }} />
+
               <motion.div initial={{y:50,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:0.8}} className="z-10 text-center max-w-3xl flex flex-col items-center">
-                <motion.div initial={{scale:0}} animate={{scale:1}} transition={{type:"spring",stiffness:260,damping:20,delay:0.5}} className="relative mb-8">
+
+                {/* Foto de perfil com tilt 3D */}
+                <motion.div
+                  initial={{scale:0}}
+                  animate={{scale:1}}
+                  transition={{type:"spring",stiffness:260,damping:20,delay:0.5}}
+                  className="relative mb-8"
+                  style={{ rotateX: profileRotateX, rotateY: profileRotateY, transformPerspective: 600 }}
+                >
                   <div className="absolute inset-0 bg-[#FFD700] blur-xl opacity-40 rounded-full"></div>
                   <img src="/perfil.jpg" alt="Adriano Ferreira" className="relative w-40 h-40 md:w-48 md:h-48 object-cover rounded-full border-4 border-[#FFD700] shadow-2xl"/>
                   <div className="absolute bottom-2 right-2 bg-black border border-[#FFD700] text-[#FFD700] text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
                     <div className="w-2 h-2 bg-[#FFD700] rounded-full animate-pulse"></div>VOLTZ
                   </div>
                 </motion.div>
+
                 <p className="text-yellow-500 font-mono mb-4 text-sm">&lt;system_online /&gt;</p>
                 <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white leading-tight"><HackerText text="ADRIANO FERREIRA" /></h1>
                 <p className="text-gray-400 text-base md:text-lg mb-2">CEO da <span className="text-[#FFD700] font-bold">VOLTZ Soluções Integradas & Energias Renováveis</span></p>
@@ -178,7 +260,8 @@ function App() {
                   <a href={LINKEDIN} target="_blank" className="bg-blue-700 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-bold flex items-center justify-center gap-2 transition-all hover:shadow-[0_0_20px_rgba(29,78,216,0.5)]"><Linkedin size={20}/> LinkedIn</a>
                 </div>
               </motion.div>
-              <motion.div style={{opacity:arrowOpacity}} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500">
+
+              <motion.div style={{opacity:arrowOpacity}} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 z-10">
                 <span className="text-xs font-mono tracking-widest uppercase">Nossos Serviços</span>
                 <ArrowDown className="animate-bounce text-[#FFD700]" size={24}/>
               </motion.div>
@@ -200,123 +283,137 @@ function App() {
                   <Zap className="text-[#FFD700]"/> Nossas Especialidades
                 </motion.h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
                   {/* Card Energia Solar */}
-                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.1}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
-                    <div className="h-52 overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                        alt="Painéis Solares"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Sun size={20} className="text-[#FFD700]"/>
-                        <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Energias Renováveis</span>
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.1}}>
+                    <TiltCard className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
+                      <div className="h-52 overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                          alt="Painéis Solares"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Energia Solar Fotovoltaica</h3>
-                      <p className="text-gray-400 text-sm">Projetos completos On-grid, Off-grid e Híbridos. Dimensionamento, ampliação e repotenciação de sistemas existentes. Limpeza e manutenção preventiva de painéis. Troca e upgrade de placas, inversores e controladores de carga. Suporte total na negociação de financiamentos bancários.</p>
-                    </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Sun size={20} className="text-[#FFD700]"/>
+                          <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Energias Renováveis</span>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Energia Solar Fotovoltaica</h3>
+                        <p className="text-gray-400 text-sm">Projetos completos On-grid, Off-grid e Híbridos. Dimensionamento, ampliação e repotenciação de sistemas existentes. Limpeza e manutenção preventiva de painéis. Troca e upgrade de placas, inversores e controladores de carga. Suporte total na negociação de financiamentos bancários.</p>
+                      </div>
+                    </TiltCard>
                   </motion.div>
 
                   {/* Card Software */}
-                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
-                    <div className="h-52 overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                        alt="Desenvolvimento de Software"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Code2 size={20} className="text-[#FFD700]"/>
-                        <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Engenharia de Software</span>
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}}>
+                    <TiltCard className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
+                      <div className="h-52 overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                          alt="Desenvolvimento de Software"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Desenvolvimento Web & TI</h3>
-                      <p className="text-gray-400 text-sm">Sistemas Full-Stack modernos, plataformas de gestão, landing pages de alta conversão, automação inteligente e infraestrutura de TI — React, Next.js, Node.js e Python.</p>
-                    </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Code2 size={20} className="text-[#FFD700]"/>
+                          <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Engenharia de Software</span>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Desenvolvimento Web & TI</h3>
+                        <p className="text-gray-400 text-sm">Sistemas Full-Stack modernos, plataformas de gestão, landing pages de alta conversão, automação inteligente e infraestrutura de TI — React, Next.js, Node.js e Python.</p>
+                      </div>
+                    </TiltCard>
                   </motion.div>
 
                   {/* Card Bombeamento Solar e Zonas Remotas */}
-                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
-                    <div className="h-52 overflow-hidden">
-                      <img
-                        src="/bombeamento-solar.jpg"
-                        alt="Bombeamento Solar e Zonas Remotas"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Droplets size={20} className="text-[#FFD700]"/>
-                        <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Bombeamento & Zonas Remotas</span>
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}}>
+                    <TiltCard className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
+                      <div className="h-52 overflow-hidden">
+                        <img
+                          src="/bombeamento-solar.jpg"
+                          alt="Bombeamento Solar e Zonas Remotas"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Bombeamento Solar & Eletrificação Rural</h3>
-                      <p className="text-gray-400 text-sm">Sistemas de bombeamento off-grid para poços artesianos e semiartesianos — bombas submersas e de superfície movidas a energia solar. Eletrificação completa de sítios, fazendas e comunidades rurais sem acesso à rede elétrica.</p>
-                    </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Droplets size={20} className="text-[#FFD700]"/>
+                          <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Bombeamento & Zonas Remotas</span>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Bombeamento Solar & Eletrificação Rural</h3>
+                        <p className="text-gray-400 text-sm">Sistemas de bombeamento off-grid para poços artesianos e semiartesianos — bombas submersas e de superfície movidas a energia solar. Eletrificação completa de sítios, fazendas e comunidades rurais sem acesso à rede elétrica.</p>
+                      </div>
+                    </TiltCard>
                   </motion.div>
 
                   {/* Card Elétrica e Carregadores EV */}
-                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
-                    <div className="h-52 overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80"
-                        alt="Carregador para Veículo Elétrico"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Car size={20} className="text-[#FFD700]"/>
-                        <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Elétrica & EV</span>
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}}>
+                    <TiltCard className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
+                      <div className="h-52 overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80"
+                          alt="Carregador para Veículo Elétrico"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Instalação Elétrica & Carregadores EV</h3>
-                      <p className="text-gray-400 text-sm">Instalação de carregadores para veículos elétricos (Wallbox e estações públicas), instalações elétricas residenciais e prediais, inspeções técnicas e laudos elétricos com total segurança e conformidade às normas ABNT.</p>
-                    </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Car size={20} className="text-[#FFD700]"/>
+                          <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Elétrica & EV</span>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Instalação Elétrica & Carregadores EV</h3>
+                        <p className="text-gray-400 text-sm">Instalação de carregadores para veículos elétricos (Wallbox e estações públicas), instalações elétricas residenciais e prediais, inspeções técnicas e laudos elétricos com total segurança e conformidade às normas ABNT.</p>
+                      </div>
+                    </TiltCard>
                   </motion.div>
 
                   {/* Card Segurança Eletrônica */}
-                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
-                    <div className="h-52 overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80"
-                        alt="Segurança Eletrônica"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Camera size={20} className="text-[#FFD700]"/>
-                        <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Segurança Eletrônica</span>
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}}>
+                    <TiltCard className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
+                      <div className="h-52 overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80"
+                          alt="Segurança Eletrônica"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Segurança & Controle de Acesso</h3>
-                      <p className="text-gray-400 text-sm">Instalação de câmeras CFTV, cercas elétricas, alarmes, interfones, motores elétricos para portões e cancelas — proteção completa para residências e empresas.</p>
-                    </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Camera size={20} className="text-[#FFD700]"/>
+                          <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Segurança Eletrônica</span>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Segurança & Controle de Acesso</h3>
+                        <p className="text-gray-400 text-sm">Instalação de câmeras CFTV, cercas elétricas, alarmes, interfones, motores elétricos para portões e cancelas — proteção completa para residências e empresas.</p>
+                      </div>
+                    </TiltCard>
                   </motion.div>
 
                   {/* Card Hardware */}
-                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.4}} className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-all">
-                    <div className="h-52 overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80"
-                        alt="Manutenção de Hardware"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6 flex flex-col items-start gap-4">
-                      <div className="flex-shrink-0 p-3 bg-black rounded-xl border border-white/10">
-                        <Wrench size={28} className="text-[#FFD700]"/>
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.4}}>
+                    <TiltCard className="group bg-neutral-900 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
+                      <div className="h-52 overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80"
+                          alt="Manutenção de Hardware"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Hardware & Suporte</span>
+                      <div className="p-6 flex flex-col items-start gap-4">
+                        <div className="flex-shrink-0 p-3 bg-black rounded-xl border border-white/10">
+                          <Wrench size={28} className="text-[#FFD700]"/>
                         </div>
-                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Montagem e Manutenção de Hardware</h3>
-                        <p className="text-gray-400 text-sm">Montagem personalizada de computadores, manutenção preventiva e corretiva, upgrades de performance e suporte técnico completo para empresas e usuários finais.</p>
+                        <div>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Hardware & Suporte</span>
+                          </div>
+                          <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Montagem e Manutenção de Hardware</h3>
+                          <p className="text-gray-400 text-sm">Montagem personalizada de computadores, manutenção preventiva e corretiva, upgrades de performance e suporte técnico completo para empresas e usuários finais.</p>
+                        </div>
                       </div>
-                    </div>
+                    </TiltCard>
                   </motion.div>
+
                 </div>
               </div>
             </section>
@@ -334,21 +431,23 @@ function App() {
                 </motion.h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {projects.map((project, index) => (
-                    <motion.div key={index} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:index*0.1}} className="group bg-neutral-900 border border-white/10 rounded-xl p-6 hover:border-[#FFD700]/50 hover:bg-neutral-800 transition-all">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="p-2 bg-black rounded-lg border border-white/10">
-                          {project.type === "Sistema" ? <Server size={20} className="text-blue-400"/> : <Smartphone size={20} className="text-[#FFD700]"/>}
+                    <motion.div key={index} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:index*0.1}}>
+                      <TiltCard maxAngle={8} className="group bg-neutral-900 border border-white/10 rounded-xl p-6 hover:border-[#FFD700]/50 hover:bg-neutral-800 transition-colors h-full flex flex-col">
+                        <div className="flex justify-between items-start mb-4">
+                          <div className="p-2 bg-black rounded-lg border border-white/10">
+                            {project.type === "Sistema" ? <Server size={20} className="text-blue-400"/> : <Smartphone size={20} className="text-[#FFD700]"/>}
+                          </div>
+                          <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">{project.type}</span>
                         </div>
-                        <span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">{project.type}</span>
-                      </div>
-                      <h3 className="text-2xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">{project.title}</h3>
-                      <p className="text-gray-400 mb-4 text-sm">{project.desc}</p>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tech.map((t, i) => (
-                          <span key={i} className="text-xs bg-black border border-white/10 text-gray-400 px-2 py-1 rounded font-mono">{t}</span>
-                        ))}
-                      </div>
-                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-[#FFD700] transition-colors">Acessar <ExternalLink size={14}/></a>
+                        <h3 className="text-2xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">{project.title}</h3>
+                        <p className="text-gray-400 mb-4 text-sm flex-1">{project.desc}</p>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.tech.map((t, i) => (
+                            <span key={i} className="text-xs bg-black border border-white/10 text-gray-400 px-2 py-1 rounded font-mono">{t}</span>
+                          ))}
+                        </div>
+                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-[#FFD700] transition-colors">Acessar <ExternalLink size={14}/></a>
+                      </TiltCard>
                     </motion.div>
                   ))}
                 </div>
@@ -375,16 +474,27 @@ function App() {
                       whileInView={{opacity:1,scale:1}}
                       viewport={{once:true}}
                       transition={{delay:index*0.07}}
-                      className="group relative bg-neutral-900 border border-white/10 rounded-xl p-5 flex flex-col items-center text-center hover:border-[#FFD700]/40 hover:bg-neutral-800 transition-all"
                     >
-                      <div className="w-12 h-12 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center mb-3 group-hover:bg-[#FFD700]/20 transition-colors">
-                        <Zap size={20} className="text-[#FFD700]"/>
-                      </div>
-                      <span className="font-black text-white text-base tracking-wide">{p.name}</span>
-                      <span className="text-gray-500 text-xs mt-1">{p.area}</span>
-                      <span className="mt-3 text-[10px] font-mono uppercase tracking-widest text-[#FFD700]/50 bg-[#FFD700]/5 border border-[#FFD700]/10 px-2 py-1 rounded-full">
-                        {p.status}
-                      </span>
+                      {/* Float 3D: cada card sobe e desce em ritmos ligeiramente diferentes */}
+                      <motion.div
+                        animate={{ y: [0, -9, 0] }}
+                        transition={{
+                          duration: 3 + index * 0.25,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: index * 0.35,
+                        }}
+                        className="group relative bg-neutral-900 border border-white/10 rounded-xl p-5 flex flex-col items-center text-center hover:border-[#FFD700]/40 hover:bg-neutral-800 transition-colors cursor-default"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center mb-3 group-hover:bg-[#FFD700]/20 transition-colors">
+                          <Zap size={20} className="text-[#FFD700]"/>
+                        </div>
+                        <span className="font-black text-white text-base tracking-wide">{p.name}</span>
+                        <span className="text-gray-500 text-xs mt-1">{p.area}</span>
+                        <span className="mt-3 text-[10px] font-mono uppercase tracking-widest text-[#FFD700]/50 bg-[#FFD700]/5 border border-[#FFD700]/10 px-2 py-1 rounded-full">
+                          {p.status}
+                        </span>
+                      </motion.div>
                     </motion.div>
                   ))}
                 </div>
