@@ -52,7 +52,7 @@ const projects = [
 ];
 
 const partners = [
-  { name: "PC Pinturas",     area: "Pintura Residencial & Comercial", status: "parceiro oficial", logo: "/parceiro-pc-pinturas.png" },
+  { name: "PC Pinturas",     area: "Pintura Residencial & Comercial", status: "parceiro oficial", logo: "/parceiro-pc-pinturas.png", link: "https://pcpinturasthe.netlify.app/" },
   { name: "WEG",             area: "Motores & Automação",              status: "em breve" },
   { name: "Intelbras",       area: "Segurança & Telecom",              status: "em breve" },
   { name: "Fronius",         area: "Inversores Solares",               status: "em breve" },
@@ -404,7 +404,8 @@ function App() {
                       <motion.div
                         animate={{ y: [0, -9, 0] }}
                         transition={{ duration: 3 + index * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.35 }}
-                        className="group relative bg-neutral-900/90 border border-white/10 rounded-xl p-5 flex flex-col items-center text-center hover:border-[#FFD700]/40 hover:bg-neutral-800/90 transition-colors cursor-default"
+                        className={`group relative bg-neutral-900/90 border border-white/10 rounded-xl p-5 flex flex-col items-center text-center hover:border-[#FFD700]/40 hover:bg-neutral-800/90 transition-colors ${p.link ? 'cursor-pointer' : 'cursor-default'}`}
+                        onClick={() => p.link && window.open(p.link, '_blank', 'noopener noreferrer')}
                       >
                         {p.logo ? (
                           <div className="w-20 h-20 rounded-xl bg-white flex items-center justify-center mb-3 overflow-hidden border border-white/10 group-hover:scale-105 transition-transform duration-300">
@@ -422,6 +423,7 @@ function App() {
                             ? 'text-[#FFD700] bg-[#FFD700]/10 border border-[#FFD700]/30'
                             : 'text-[#FFD700]/50 bg-[#FFD700]/5 border border-[#FFD700]/10'
                         }`}>{p.status}</span>
+                        {p.link && <ExternalLink size={12} className="absolute top-3 right-3 text-[#FFD700]/40 group-hover:text-[#FFD700] transition-colors"/>}
                       </motion.div>
                     </motion.div>
                   ))}
