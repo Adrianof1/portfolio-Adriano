@@ -195,6 +195,16 @@ export default function Scene3D({ scrollProgress }) {
       [ 0, -29,  7,    0, -29,  0],
     ];
 
+    /* ── Two-stage smoothing state ──────────────────────────────
+       Stage 1: smoothScroll  lerps toward the raw scroll value
+                (removes the scroll-event "steps")
+       Stage 2: cam / look    lerp toward the keyframe target
+                (adds inertia / cinematic glide)
+    ──────────────────────────────────────────────────────────── */
+    let smoothScroll = 0;  // scroll 0→1, damped
+    const cam  = { x: 0,  y: 0,  z: 6  };
+    const look = { x: 0,  y: 0,  z: 0  };
+
     /* ── Animation loop ── */
     const clock = new THREE.Clock();
     let raf;
@@ -202,7 +212,9 @@ export default function Scene3D({ scrollProgress }) {
     const tick = () => {
       raf = requestAnimationFrame(tick);
       const t  = clock.getElapsedTime();
-      const sp = scrollRef.current;
+
+      /* ── Stage 1: damp the scroll progress ── */
+      smoothScroll += (scrollRef.current - smoothScroll) * 0.055;
 
       /* Float + rotate 3D objects */
       floaters.forEach(({ mesh, baseY, fy, fa, rx, ry, rz, phase }) => {
@@ -232,23 +244,33 @@ export default function Scene3D({ scrollProgress }) {
       galaxyB.rotation.x = 0.25 + Math.sin(t*0.018 + 1) * 0.03;
       galaxyC.rotation.x = 0.45;
 
-      /* Camera journey (smoothstep interpolation) */
-      const n   = KF.length - 1;
-      const raw = sp * n;
-      const lo  = Math.floor(raw);
-      const hi  = Math.min(lo + 1, n);
-      const f   = raw - lo;
-      const e   = f * f * (3 - 2 * f);
-      const lerp = (a,b,t) => a+(b-a)*t;
+      /* ── Stage 2: resolve keyframe target from smoothed scroll ── */
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const n    = KF.length - 1;
+      const raw  = smoothScroll * n;
+      const lo   = Math.floor(raw);
+      const hi   = Math.min(lo + 1, n);
+      const f    = raw - lo;
+      const e    = f * f * (3 - 2 * f); // smoothstep
 
-      camera.position.x = lerp(KF[lo][0], KF[hi][0], e);
-      camera.position.y = lerp(KF[lo][1], KF[hi][1], e);
-      camera.position.z = lerp(KF[lo][2], KF[hi][2], e);
-      camera.lookAt(
-        lerp(KF[lo][3], KF[hi][3], e),
-        lerp(KF[lo][4], KF[hi][4], e),
-        lerp(KF[lo][5], KF[hi][5], e),
-      );
+      const tgx = lerp(KF[lo][0], KF[hi][0], e);
+      const tgy = lerp(KF[lo][1], KF[hi][1], e);
+      const tgz = lerp(KF[lo][2], KF[hi][2], e);
+      const tlx = lerp(KF[lo][3], KF[hi][3], e);
+      const tly = lerp(KF[lo][4], KF[hi][4], e);
+      const tlz = lerp(KF[lo][5], KF[hi][5], e);
+
+      /* ── Stage 2: glide camera toward target (inertia) ── */
+      const DAMP = 0.065;
+      cam.x  += (tgx - cam.x)  * DAMP;
+      cam.y  += (tgy - cam.y)  * DAMP;
+      cam.z  += (tgz - cam.z)  * DAMP;
+      look.x += (tlx - look.x) * DAMP;
+      look.y += (tly - look.y) * DAMP;
+      look.z += (tlz - look.z) * DAMP;
+
+      camera.position.set(cam.x, cam.y, cam.z);
+      camera.lookAt(look.x, look.y, look.z);
 
       renderer.render(scene, camera);
     };
