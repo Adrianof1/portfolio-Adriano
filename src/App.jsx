@@ -52,14 +52,15 @@ const projects = [
 ];
 
 const partners = [
-  { name: "WEG",             area: "Motores & Automação",           status: "em breve" },
-  { name: "Intelbras",       area: "Segurança & Telecom",           status: "em breve" },
-  { name: "Fronius",         area: "Inversores Solares",            status: "em breve" },
-  { name: "Growatt",         area: "Inversores & Baterias",         status: "em breve" },
-  { name: "Canadian Solar",  area: "Módulos Fotovoltaicos",         status: "em breve" },
-  { name: "Deye",            area: "Inversores Híbridos",           status: "em breve" },
-  { name: "BYD",             area: "Baterias & Veículos Elétricos", status: "em breve" },
-  { name: "Schneider",       area: "Elétrica & Infraestrutura",     status: "em breve" },
+  { name: "PC Pinturas",     area: "Pintura Residencial & Comercial", status: "parceiro oficial", logo: "/parceiro-pc-pinturas.png" },
+  { name: "WEG",             area: "Motores & Automação",              status: "em breve" },
+  { name: "Intelbras",       area: "Segurança & Telecom",              status: "em breve" },
+  { name: "Fronius",         area: "Inversores Solares",               status: "em breve" },
+  { name: "Growatt",         area: "Inversores & Baterias",            status: "em breve" },
+  { name: "Canadian Solar",  area: "Módulos Fotovoltaicos",            status: "em breve" },
+  { name: "Deye",            area: "Inversores Híbridos",              status: "em breve" },
+  { name: "BYD",             area: "Baterias & Veículos Elétricos",   status: "em breve" },
+  { name: "Schneider",       area: "Elétrica & Infraestrutura",        status: "em breve" },
 ];
 
 const WHATSAPP   = import.meta.env.VITE_WHATSAPP || "5586999830819";
@@ -405,12 +406,22 @@ function App() {
                         transition={{ duration: 3 + index * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.35 }}
                         className="group relative bg-neutral-900/90 border border-white/10 rounded-xl p-5 flex flex-col items-center text-center hover:border-[#FFD700]/40 hover:bg-neutral-800/90 transition-colors cursor-default"
                       >
-                        <div className="w-12 h-12 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center mb-3 group-hover:bg-[#FFD700]/20 transition-colors">
-                          <Zap size={20} className="text-[#FFD700]"/>
-                        </div>
+                        {p.logo ? (
+                          <div className="w-20 h-20 rounded-xl bg-white flex items-center justify-center mb-3 overflow-hidden border border-white/10 group-hover:scale-105 transition-transform duration-300">
+                            <img src={p.logo} alt={p.name} className="w-full h-full object-contain p-1"/>
+                          </div>
+                        ) : (
+                          <div className="w-12 h-12 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center mb-3 group-hover:bg-[#FFD700]/20 transition-colors">
+                            <Zap size={20} className="text-[#FFD700]"/>
+                          </div>
+                        )}
                         <span className="font-black text-white text-base tracking-wide">{p.name}</span>
                         <span className="text-gray-500 text-xs mt-1">{p.area}</span>
-                        <span className="mt-3 text-[10px] font-mono uppercase tracking-widest text-[#FFD700]/50 bg-[#FFD700]/5 border border-[#FFD700]/10 px-2 py-1 rounded-full">{p.status}</span>
+                        <span className={`mt-3 text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded-full ${
+                          p.status === 'parceiro oficial'
+                            ? 'text-[#FFD700] bg-[#FFD700]/10 border border-[#FFD700]/30'
+                            : 'text-[#FFD700]/50 bg-[#FFD700]/5 border border-[#FFD700]/10'
+                        }`}>{p.status}</span>
                       </motion.div>
                     </motion.div>
                   ))}
