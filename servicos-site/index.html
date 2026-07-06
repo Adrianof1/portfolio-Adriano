@@ -321,6 +321,75 @@
     .fu { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
     .fu.on { opacity: 1; transform: translateY(0); }
 
+    /* ─── BOTÃO WHATSAPP FLUTUANTE ─── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 24px; z-index: 9999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      animation: wa-pulse 2.5s ease-in-out infinite;
+      transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.1) !important; }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+    .wa-float-tooltip {
+      position: absolute; right: 68px; top: 50%; transform: translateY(-50%);
+      background: #111; color: #fff; font-size: 0.75rem; font-weight: 600;
+      white-space: nowrap; padding: 6px 12px; border-radius: 8px;
+      border: 1px solid #333; pointer-events: none; opacity: 0; transition: opacity 0.2s;
+    }
+    .wa-float:hover .wa-float-tooltip { opacity: 1; }
+    @keyframes wa-pulse {
+      0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); }
+      50%      { box-shadow: 0 4px 28px rgba(37,211,102,0.70); }
+    }
+
+    /* ─── POR QUE A VOLTZ? ─── */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 40px;
+    }
+    .why-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color 0.2s;
+    }
+    .why-card:hover { border-color: var(--gold-40); }
+    .why-icon { font-size: 2rem; }
+    .why-title { font-size: 1rem; font-weight: 700; color: #fff; }
+    .why-desc { font-size: 0.84rem; color: var(--muted2); line-height: 1.6; }
+
+    /* ─── URGÊNCIA ─── */
+    .urgency-bar {
+      background: rgba(255,215,0,0.06); border-top: 1px solid rgba(255,215,0,0.18);
+      border-bottom: 1px solid rgba(255,215,0,0.18);
+      padding: 14px 24px; text-align: center;
+    }
+    .urgency-bar p { font-size: 0.88rem; font-weight: 600; color: rgba(255,215,0,0.88); }
+    .urgency-bar a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .urgency-bar a:hover { color: var(--gold); }
+
+    /* ─── FAQ ─── */
+    .faq-list { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; max-width: 760px; margin-left: auto; margin-right: auto; }
+    .faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .faq-q {
+      width: 100%; text-align: left; padding: 18px 22px;
+      background: none; border: none; cursor: pointer;
+      font-size: 0.95rem; font-weight: 600; color: #fff;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .faq-q:hover { color: var(--gold); }
+    .faq-q .faq-arrow { font-size: 1.1rem; transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      font-size: 0.87rem; color: var(--muted2); line-height: 1.7;
+      padding: 0 22px;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 22px 18px; }
+
     /* ─── RESPONSIVE ─── */
     @media(max-width:640px){
       nav { padding: 0 16px; }
@@ -372,9 +441,9 @@
   </h1>
 
   <p class="hero-sub">
-    Energia solar, instalações elétricas, bombeamento off-grid, segurança eletrônica, automação, carregadores EV e desenvolvimento de software.
+    Reduza sua conta de luz até 95% · Casa mais segura e inteligente · Tudo em uma única empresa no Piauí.
   </p>
-  <p class="hero-sub2">Piauí • Brasil — Residencial, Comercial e Industrial</p>
+  <p class="hero-sub2">Orçamento grátis · Resposta em até 2h · 100% conforme ABNT · Piauí, Brasil</p>
 
   <div class="hero-ctas">
     <a href="https://wa.me/5586999830819?text=Olá! Gostaria de solicitar um orçamento." target="_blank" class="btn-wa">
@@ -386,9 +455,9 @@
 
   <div class="hero-stats">
     <div><div class="stat-num">10+</div><div class="stat-lbl">Especialidades</div></div>
-    <div><div class="stat-num">360°</div><div class="stat-lbl">Soluções Completas</div></div>
-    <div><div class="stat-num">2</div><div class="stat-lbl">Sistemas em Produção</div></div>
-    <div><div class="stat-num">PI</div><div class="stat-lbl">Estado do Piauí</div></div>
+    <div><div class="stat-num">2h</div><div class="stat-lbl">Tempo de Resposta</div></div>
+    <div><div class="stat-num">100%</div><div class="stat-lbl">Conformidade ABNT</div></div>
+    <div><div class="stat-num">PI</div><div class="stat-lbl">Atendimento Estadual</div></div>
   </div>
 </section>
 
@@ -409,6 +478,12 @@
     <span>🏠 Instalação Elétrica Residencial</span>
     <span>🏢 Instalação Elétrica Predial e Comercial</span>
     <span>🏠 Automação Residencial Inteligente</span>
+    <span>🔐 Fechaduras Eletrônicas & Biométricas</span>
+    <span>💡 Lâmpadas Inteligentes (RGB & Wi-Fi)</span>
+    <span>🔌 Tomadas & Interruptores Inteligentes</span>
+    <span>🏠 Integração com Alexa & Google Home</span>
+    <span>🌡️ Climatização Inteligente — AC Smart</span>
+    <span>🎭 Cortinas & Persianas Motorizadas</span>
     <span>🏢 Automação Industrial e Empresarial</span>
     <span>📷 Câmeras de Segurança CFTV</span>
     <span>⚡ Cercas Elétricas e Alarmes</span>
@@ -431,6 +506,12 @@
     <span>🏠 Instalação Elétrica Residencial</span>
     <span>🏢 Instalação Elétrica Predial e Comercial</span>
     <span>🏠 Automação Residencial Inteligente</span>
+    <span>🔐 Fechaduras Eletrônicas & Biométricas</span>
+    <span>💡 Lâmpadas Inteligentes (RGB & Wi-Fi)</span>
+    <span>🔌 Tomadas & Interruptores Inteligentes</span>
+    <span>🏠 Integração com Alexa & Google Home</span>
+    <span>🌡️ Climatização Inteligente — AC Smart</span>
+    <span>🎭 Cortinas & Persianas Motorizadas</span>
     <span>🏢 Automação Industrial e Empresarial</span>
     <span>📷 Câmeras de Segurança CFTV</span>
     <span>⚡ Cercas Elétricas e Alarmes</span>
@@ -440,6 +521,38 @@
     <span>🛠️ Montagem e Manutenção de Hardware</span>
   </div>
 </div>
+
+<!-- ═══ POR QUE A VOLTZ? ═══ -->
+<section class="section" id="diferenciais">
+  <div class="wrap">
+    <div class="sec-head fu">
+      <h2><span class="ico">🏆</span> Por que escolher a VOLTZ S.I?</h2>
+      <p>Uma empresa. Várias soluções. Zero complicação.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fu">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Empresa Completa</div>
+        <div class="why-desc">Solar, elétrica, segurança, automação e TI — sem precisar chamar 4 fornecedores diferentes.</div>
+      </div>
+      <div class="why-card fu">
+        <div class="why-icon">💬</div>
+        <div class="why-title">Resposta em até 2h</div>
+        <div class="why-desc">Atendimento rápido pelo WhatsApp. Orçamento gratuito e sem compromisso, sem enrolação.</div>
+      </div>
+      <div class="why-card fu">
+        <div class="why-icon">🔒</div>
+        <div class="why-title">Garantia de Serviço</div>
+        <div class="why-desc">Todos os serviços seguem as normas ABNT. Laudo técnico com ART incluso nas instalações.</div>
+      </div>
+      <div class="why-card fu">
+        <div class="why-icon">📍</div>
+        <div class="why-title">Atende todo o Piauí</div>
+        <div class="why-desc">Residencial, comercial e rural — de Teresina ao interior do estado.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ ESPECIALIDADES ═══ -->
 <section class="section section-dark" id="especialidades">
@@ -507,6 +620,17 @@
 
       <div class="card fu">
         <div class="card-img-box">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Casa Inteligente Smart Home"/>
+        </div>
+        <div class="card-body">
+          <div class="card-tag"><span class="dot">●</span> Casa Inteligente & IoT</div>
+          <h3>Smart Home — Sua Casa no Celular</h3>
+          <p>Fechaduras eletrônicas e biométricas, tomadas e interruptores inteligentes, lâmpadas RGB com dimmer e Wi-Fi, climatização via app, cortinas motorizadas e integração completa com Alexa, Google Home e Siri — tudo controlado pelo celular.</p>
+        </div>
+      </div>
+
+      <div class="card fu">
+        <div class="card-img-box">
           <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80" alt="Hardware"/>
         </div>
         <div class="card-body">
@@ -542,6 +666,12 @@
       <div class="svc fu"><div class="svc-icon">🏠</div><div><strong>Instalação Elétrica Residencial</strong><span>Instalações novas, reformas, troca de quadros e pontos elétricos.</span></div></div>
       <div class="svc fu"><div class="svc-icon">🏢</div><div><strong>Instalação Elétrica Predial e Comercial</strong><span>Projetos elétricos para comércios, escritórios e condomínios.</span></div></div>
       <div class="svc fu"><div class="svc-icon">🏠</div><div><strong>Automação Residencial Inteligente</strong><span>Controle de iluminação, climatização e dispositivos pelo celular.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🔐</div><div><strong>Fechaduras Eletrônicas & Biométricas</strong><span>Acesso por digital, senha, cartão ou app — sem chave, sem preocupação.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">💡</div><div><strong>Lâmpadas Inteligentes</strong><span>Iluminação RGB, dimmer, agendamentos e controle por voz ou app.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🔌</div><div><strong>Tomadas & Interruptores Inteligentes</strong><span>Controle qualquer dispositivo pelo celular e crie rotinas automáticas.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🏠</div><div><strong>Integração Alexa & Google Home</strong><span>Ecossistema completo — controle tudo por voz ou pelo app favorito.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🌡️</div><div><strong>Climatização Inteligente</strong><span>Ar-condicionado com controle remoto, agendamentos e economia de energia.</span></div></div>
+      <div class="svc fu"><div class="svc-icon">🎭</div><div><strong>Cortinas & Persianas Motorizadas</strong><span>Automatize aberturas com sensores de luz e rotinas do dia.</span></div></div>
       <div class="svc fu"><div class="svc-icon">🏭</div><div><strong>Automação Industrial e Empresarial</strong><span>Processos automáticos, integração de sistemas e controle industrial.</span></div></div>
       <div class="svc fu"><div class="svc-icon">📷</div><div><strong>Câmeras de Segurança CFTV</strong><span>Monitoramento 24h com acesso remoto pelo celular.</span></div></div>
       <div class="svc fu"><div class="svc-icon">⚡</div><div><strong>Cercas Elétricas e Alarmes</strong><span>Proteção perimetral com cercas elétricas, alarmes e sensores.</span></div></div>
@@ -614,6 +744,42 @@
   </div>
 </section>
 
+<!-- ═══ FAQ ═══ -->
+<section class="section section-dark" id="faq">
+  <div class="wrap">
+    <div class="sec-head fu">
+      <h2><span class="ico">❓</span> Perguntas Frequentes</h2>
+      <p>Tira suas dúvidas antes de entrar em contato.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fu">
+        <button class="faq-q" onclick="toggleFaq(this)">Vocês atendem minha cidade no Piauí? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a">Sim! Atendemos todo o estado do Piauí — Teresina, região metropolitana e interior. Para cidades mais distantes, consulte o deslocamento via WhatsApp. Também atendemos remotamente para projetos de TI e dimensionamento solar.</div>
+      </div>
+      <div class="faq-item fu">
+        <button class="faq-q" onclick="toggleFaq(this)">Energia solar funciona bem no clima do Piauí? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a">Muito bem! O Piauí é um dos estados com maior incidência solar do Brasil — mais de 6 horas de sol pleno por dia na média. Isso significa que os sistemas solares aqui geram mais energia por painel do que na maioria das regiões do país, garantindo um retorno ainda mais rápido do investimento.</div>
+      </div>
+      <div class="faq-item fu">
+        <button class="faq-q" onclick="toggleFaq(this)">Quanto tempo leva uma instalação solar residencial? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a">Em média de 1 a 3 dias úteis para a instalação física, dependendo do tamanho do sistema. Após a instalação, a homologação junto à distribuidora pode levar de 15 a 60 dias — nós cuidamos de todo esse processo burocrático para você.</div>
+      </div>
+      <div class="faq-item fu">
+        <button class="faq-q" onclick="toggleFaq(this)">Quais formas de pagamento vocês aceitam? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a">Aceitamos Pix, dinheiro, cartão de débito e crédito, pagamento presencial e financiamento bancário. Para projetos maiores, auxiliamos na negociação de crédito junto aos bancos parceiros.</div>
+      </div>
+      <div class="faq-item fu">
+        <button class="faq-q" onclick="toggleFaq(this)">Tenho garantia no serviço executado? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a">Sim. Todos os serviços elétricos e de instalação seguem rigorosamente as normas ABNT e são acompanhados de laudo técnico com ART (Anotação de Responsabilidade Técnica) quando aplicável. Os equipamentos solares possuem garantia do fabricante de 10 a 25 anos.</div>
+      </div>
+      <div class="faq-item fu">
+        <button class="faq-q" onclick="toggleFaq(this)">É possível financiar o sistema solar? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a">Sim! Trabalhamos com assessoria completa de financiamento bancário — Santander, BNB, Sicoob e outras instituições. Em muitos casos, a parcela do financiamento fica menor do que a economia gerada na conta de luz, tornando o investimento imediatamente rentável.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ TRABALHA NA ÁREA? ═══ -->
 <section class="section" id="parceria">
   <div class="wrap">
@@ -646,6 +812,11 @@
   </div>
 </section>
 
+<!-- ═══ URGÊNCIA ═══ -->
+<div class="urgency-bar">
+  <p>📅 Agenda limitada — solicite seu orçamento este mês e garanta prazo de execução. <a href="https://wa.me/5586999830819?text=Olá! Gostaria de garantir um orçamento este mês." target="_blank">Falar agora →</a></p>
+</div>
+
 <!-- ═══ CTA / CONTATO ═══ -->
 <section class="section section-dark" id="contato">
   <div class="wrap">
@@ -677,7 +848,7 @@
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="foot-logo">VOLTZ Soluções Integradas & Energias Renováveis</div>
-  <div class="foot-by">Piauí • Brasil — CNPJ em abertura</div>
+  <div class="foot-by">Piauí • Brasil — Residencial, Comercial e Industrial</div>
   <div class="foot-links">
     <a href="https://wa.me/5586999830819" target="_blank">WhatsApp</a>
     <a href="https://linkedin.com/in/adrianoferreira-dev" target="_blank">LinkedIn</a>
@@ -743,6 +914,20 @@
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); } });
   }, { threshold: 0.08 });
   document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+  /* ── FAQ accordion ── */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
 </script>
+
+<!-- BOTÃO WHATSAPP FLUTUANTE -->
+<a href="https://wa.me/5586999830819?text=Olá! Vim pelo site e gostaria de um orçamento." target="_blank" class="wa-float" title="Solicitar orçamento grátis">
+  <span class="wa-float-tooltip">Orçamento grátis</span>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 </body>
 </html>
