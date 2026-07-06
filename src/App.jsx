@@ -238,8 +238,11 @@ function App() {
                 <p className="text-gray-300 text-base md:text-lg mb-2 drop-shadow">
                   CEO da <span className="text-[#FFD700] font-bold">VOLTZ Soluções Integradas & Energias Renováveis</span>
                 </p>
-                <p className="text-gray-400 text-sm md:text-base mb-8 drop-shadow">
-                  Tecnologia de software + Engenharia de energia solar em uma única empresa.
+                <p className="text-gray-400 text-sm md:text-base mb-2 drop-shadow">
+                  Energia solar · Elétrica · Segurança · Automação · TI — tudo em uma única empresa no Piauí.
+                </p>
+                <p className="text-[#FFD700]/80 text-sm font-semibold mb-8 drop-shadow">
+                  Orçamento grátis · Resposta em até 2h · 100% conforme ABNT
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
                   <a href={`https://wa.me/${WHATSAPP}`} target="_blank" className="bg-[#FFD700] hover:bg-yellow-400 text-black px-8 py-3 rounded-lg font-bold flex items-center justify-center gap-2 transition-all hover:shadow-[0_0_20px_rgba(255,215,0,0.5)]"><MessageCircle size={20}/> Solicitar Orçamento</a>
@@ -262,6 +265,30 @@ function App() {
                 ))}
               </div>
             </div>
+
+            {/* ══ POR QUE A VOLTZ? ══ */}
+            <section className="py-16 px-4" style={{ background: is3D ? 'rgba(0,0,0,0.80)' : '#0a0a0a', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
+              <div className="max-w-5xl mx-auto">
+                <motion.h2 initial={{opacity:0,y:16}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-2xl md:text-3xl font-bold text-center mb-10">
+                  Por que escolher a <span className="text-[#FFD700]">VOLTZ S.I</span>?
+                </motion.h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {[
+                    { icon: "⚡", title: "Empresa Completa", desc: "Solar, elétrica, segurança, automação e TI — sem precisar chamar 4 fornecedores diferentes." },
+                    { icon: "💬", title: "Resposta em até 2h", desc: "Atendimento rápido pelo WhatsApp. Orçamento gratuito e sem compromisso." },
+                    { icon: "🔒", title: "Garantia de Serviço", desc: "Todos os serviços seguem as normas ABNT. Laudo técnico incluso nas instalações." },
+                    { icon: "📍", title: "Atende todo o Piauí", desc: "Residencial, comercial e rural — de Teresina ao interior do estado." },
+                  ].map((item, i) => (
+                    <motion.div key={i} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*0.1}}
+                      className="bg-neutral-900/80 border border-white/10 rounded-xl p-6 flex flex-col gap-3 hover:border-[#FFD700]/40 transition-colors">
+                      <span className="text-3xl">{item.icon}</span>
+                      <h3 className="font-bold text-white text-base">{item.title}</h3>
+                      <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
 
             {/* ══ ESPECIALIDADES ══ */}
             <section className="py-24 px-4 border-t border-white/10" style={{ background: is3D ? 'rgba(0,0,0,0.72)' : '#050505', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
@@ -457,6 +484,15 @@ function App() {
               </div>
             </section>
 
+            {/* URGÊNCIA */}
+            <div className="py-5 px-4 text-center border-t border-[#FFD700]/20" style={{ background: is3D ? 'rgba(0,0,0,0.85)' : '#080808' }}>
+              <p className="text-[#FFD700]/90 text-sm font-semibold">
+                📅 Agenda limitada — solicite seu orçamento este mês e garanta prazo de execução.{" "}
+                <a href={`https://wa.me/${WHATSAPP}?text=Olá! Gostaria de garantir um orçamento este mês.`} target="_blank" rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-white transition-colors">Falar agora →</a>
+              </p>
+            </div>
+
             {/* FOOTER */}
             <footer className="border-t border-white/10 py-10 px-4 text-center" style={{ background: is3D ? 'rgba(0,0,0,0.92)' : 'black' }}>
               <p className="text-[#FFD700] font-bold text-lg mb-1">VOLTZ Soluções Integradas & Energias Renováveis</p>
@@ -470,6 +506,27 @@ function App() {
             </footer>
 
           </main>
+        )}
+
+        {/* BOTÃO WHATSAPP FLUTUANTE */}
+        {!showIntro && (
+          <a
+            href={`https://wa.me/${WHATSAPP}?text=Olá! Vim pelo portfólio e gostaria de um orçamento.`}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Solicitar orçamento grátis"
+            style={{
+              position: 'fixed', bottom: '28px', right: '24px', zIndex: 9999,
+              width: '58px', height: '58px', borderRadius: '50%',
+              background: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 4px 20px rgba(37,211,102,0.45)',
+              animation: 'wa-pulse 2.5s ease-in-out infinite',
+            }}
+          >
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </a>
         )}
       </div>
     </HelmetProvider>

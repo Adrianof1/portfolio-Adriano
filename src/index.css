@@ -56,6 +56,11 @@ body {
   animation: diamond-float ease-in-out infinite;
 }
 
+@keyframes wa-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); transform: scale(1); }
+  50%       { box-shadow: 0 4px 28px rgba(37,211,102,0.70); transform: scale(1.06); }
+}
+
 @keyframes diamond-float {
   0%, 100% {
     transform: rotate(45deg) translateY(0px) scale(1);
