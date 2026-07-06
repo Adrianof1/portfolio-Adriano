@@ -33,6 +33,12 @@ const services = [
   "🏠 Instalação Elétrica Residencial",
   "🏢 Instalação Elétrica Predial e Comercial",
   "🏠 Automação Residencial Inteligente",
+  "🔐 Fechaduras Eletrônicas & Biométricas",
+  "💡 Lâmpadas Inteligentes (RGB, Dimmer & Wi-Fi)",
+  "🔌 Tomadas & Interruptores Inteligentes",
+  "🏠 Integração com Alexa, Google Home & Siri",
+  "🌡️ Climatização Inteligente — AC Smart",
+  "🎭 Cortinas & Persianas Motorizadas",
   "🏢 Automação Industrial e Empresarial",
   "📷 Instalação de Câmeras de Segurança (CFTV)",
   "⚡ Cercas Elétricas e Alarmes",
@@ -331,6 +337,19 @@ function App() {
                   </motion.div>
 
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.4}}>
+                    <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
+                      <div className="h-52 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Casa Inteligente" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3"><Smartphone size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Casa Inteligente & IoT</span></div>
+                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#FFD700] transition-colors">Smart Home — Sua Casa no Celular</h3>
+                        <p className="text-gray-400 text-sm">Fechaduras eletrônicas e biométricas, tomadas e interruptores inteligentes, lâmpadas RGB com dimmer e Wi-Fi, climatização via app, cortinas motorizadas e integração completa com Alexa, Google Home e Siri — tudo controlado pelo celular.</p>
+                      </div>
+                    </TiltCard>
+                  </motion.div>
+
+                  <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.5}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80" alt="Manutenção de Hardware" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
