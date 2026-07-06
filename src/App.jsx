@@ -366,7 +366,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.4}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Casa Inteligente" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80" alt="Casa Inteligente" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Smartphone size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Casa Inteligente & IoT</span></div>
