@@ -59,7 +59,7 @@ const projects = [
 
 const partners = [
   { name: "PC Pinturas",     area: "Pintura Residencial & Comercial", status: "parceiro oficial", logo: "/parceiro-pc-pinturas.png", link: "https://pcpinturasthe.netlify.app/" },
-  { name: "OrçaFácil",      area: "Plataforma de Gestão & Orçamentos", status: "by VOLTZ S.I",  logo: "/orcafacil-logo.png",        link: "https://orcafacil.voltzsi.com.br/" },
+  { name: "OrçaFácil",      area: "Plataforma de Gestão & Orçamentos", status: "by VOLTZ S.I",  logo: "/orcafacil-logo.svg",        link: "https://orcafacil.voltzsi.com.br/" },
   { name: "WEG",             area: "Motores & Automação",              status: "em breve" },
   { name: "Intelbras",       area: "Segurança & Telecom",              status: "em breve" },
   { name: "Fronius",         area: "Inversores Solares",               status: "em breve" },
