@@ -59,6 +59,7 @@ const projects = [
 
 const partners = [
   { name: "PC Pinturas",     area: "Pintura Residencial & Comercial", status: "parceiro oficial", logo: "/parceiro-pc-pinturas.png", link: "https://pcpinturasthe.netlify.app/" },
+  { name: "OrçaFácil",      area: "Plataforma de Gestão & Orçamentos", status: "by VOLTZ S.I",  logo: "/orcafacil-logo.png",        link: "https://orcafacil.voltzsi.com.br/" },
   { name: "WEG",             area: "Motores & Automação",              status: "em breve" },
   { name: "Intelbras",       area: "Segurança & Telecom",              status: "em breve" },
   { name: "Fronius",         area: "Inversores Solares",               status: "em breve" },
@@ -465,7 +466,7 @@ function App() {
                         <span className="font-black text-white text-base tracking-wide">{p.name}</span>
                         <span className="text-gray-500 text-xs mt-1">{p.area}</span>
                         <span className={`mt-3 text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded-full ${
-                          p.status === 'parceiro oficial'
+                          p.status === 'parceiro oficial' || p.status === 'by VOLTZ S.I'
                             ? 'text-[#FFD700] bg-[#FFD700]/10 border border-[#FFD700]/30'
                             : 'text-[#FFD700]/50 bg-[#FFD700]/5 border border-[#FFD700]/10'
                         }`}>{p.status}</span>
