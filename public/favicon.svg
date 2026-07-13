@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" fill="#111111"/>
+  <rect width="100" height="100" fill="#0a0a0a"/>
   <!-- Braço esquerdo do V -->
-  <polygon points="4,5 26,5 52,95 36,95" fill="#FFD700"/>
-  <!-- Raio (braço direito do V) — entalhe no lado interno (esquerdo) -->
-  <path d="M54,5 L42,52 L56,52 L40,95 L52,95 L76,5 Z" fill="#FFD700"/>
+  <polygon points="2,5 22,5 52,97 32,97" fill="#FFD700"/>
+  <!-- Braço direito = raio integrado ao V -->
+  <path d="M98,5 L75,5 L46,52 L61,52 L38,97 L55,97 L77,52 L62,52 L98,5 Z" fill="#FFD700"/>
 </svg>
