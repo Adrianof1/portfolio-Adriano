@@ -1,5 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 92">
-  <rect width="100" height="92" fill="#0a0a0a"/>
-  <polygon points="4,4 22,4 44,90 26,90" fill="#FFD700"/>
-  <path d="M48,4 L98,4 L72,48 L86,48 L56,90 L44,90 L62,48 L48,48 Z" fill="#FFD700"/>
+<?xml version="1.0" standalone="no"?>
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="172pt" height="164pt" viewBox="0 0 172 164"
+ preserveAspectRatio="xMidYMid meet">
+  <!-- Camada amarela: aparece onde estão os buracos do V+raio -->
+  <rect width="172" height="164" fill="#FFD700"/>
+  <!-- Camada escura com o V+raio vazado (buracos revelam o amarelo acima) -->
+  <g transform="translate(0,164) scale(0.1,-0.1)" fill="#0a0a0a" stroke="none">
+    <path d="M0 820 l0 -820 860 0 860 0 0 820 0 820 -860 0 -860 0 0 -820z m1459
+643 c-13 -21 -81 -128 -151 -238 l-128 -200 85 -5 86 -5 -291 -435 c-160 -239
+-296 -439 -301 -445 -12 -12 -2 17 99 280 127 331 150 394 145 399 -2 2 -40 2
+-84 -1 l-81 -6 17 39 c9 21 57 140 107 264 49 124 93 229 98 233 7 8 396 155
+413 156 5 1 -2 -16 -14 -36z m-1068 -137 l124 -55 103 -198 c57 -109 133 -256
+169 -327 l66 -129 -29 -84 c-31 -90 -40 -110 -47 -103 -3 3 -83 149 -180 325
+-96 176 -211 386 -256 468 -77 140 -85 157 -78 157 2 0 60 -24 128 -54z"/>
+  </g>
 </svg>
