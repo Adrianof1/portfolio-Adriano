@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VOLTZ S.I — Painel Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #FFD700; --gold-10: rgba(255,215,0,0.10); --gold-20: rgba(255,215,0,0.20);
+      --bg: #050505; --bg2: #0d0d0d; --bg3: #111;
+      --border: rgba(255,255,255,0.07); --text: #e2e2e2; --muted: #666;
+      --green: #4ade80; --red: #f87171; --blue: #60a5fa;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* LOGIN */
+    #loginScreen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .login-box {
+      background: var(--bg2); border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 20px; padding: 48px 36px; width: 90%; max-width: 380px; text-align: center;
+    }
+    .login-box .logo { font-size: 2rem; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+    .login-box p { color: var(--muted); font-size: 0.82rem; margin-bottom: 28px; }
+    .login-box input {
+      width: 100%; background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 10px; padding: 13px 16px; color: #fff;
+      font-family: 'JetBrains Mono', monospace; font-size: 1rem;
+      outline: none; margin-bottom: 14px; letter-spacing: 0.15em;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: rgba(255,215,0,0.5); }
+    .login-box button {
+      width: 100%; background: var(--gold); color: #000; font-weight: 900;
+      font-size: 0.95rem; border: none; border-radius: 10px; padding: 14px;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .login-box button:hover { opacity: 0.85; }
+    .login-error { color: var(--red); font-size: 0.8rem; margin-top: 10px; display: none; }
+
+    /* DASHBOARD */
+    #dashboard { display: none; }
+    .topbar {
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .topbar-brand { font-weight: 900; font-size: 1rem; }
+    .topbar-brand span { color: var(--gold); }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .btn-logout {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.78rem;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover { border-color: var(--red); color: var(--red); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+
+    /* METRICS */
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .metric-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 18px;
+    }
+    .metric-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .metric-value { font-size: 2rem; font-weight: 900; color: #fff; }
+    .metric-value.gold { color: var(--gold); }
+    .metric-value.green { color: var(--green); }
+    .metric-value.blue { color: var(--blue); }
+
+    /* FILTERS */
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+    .filters input, .filters select {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 12px; color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.82rem; outline: none;
+    }
+    .filters input:focus, .filters select:focus { border-color: rgba(255,215,0,0.4); }
+    .btn-export {
+      background: var(--gold-10); border: 1px solid rgba(255,215,0,0.3);
+      color: var(--gold); padding: 8px 16px; border-radius: 8px;
+      font-size: 0.82rem; font-weight: 700; cursor: pointer; margin-left: auto;
+      transition: background 0.2s;
+    }
+    .btn-export:hover { background: var(--gold-20); }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    thead { background: var(--bg3); }
+    th { padding: 12px 14px; text-align: left; color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; white-space: nowrap; }
+    td { padding: 12px 14px; border-top: 1px solid var(--border); vertical-align: middle; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .code-chip {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+      color: var(--green); background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.25); padding: 3px 8px; border-radius: 6px;
+      white-space: nowrap;
+    }
+    .origem-chip {
+      font-size: 0.68rem; background: var(--bg3); border: 1px solid var(--border);
+      padding: 3px 8px; border-radius: 6px; color: var(--muted); white-space: nowrap;
+    }
+    .parceiro-chip {
+      font-size: 0.72rem; color: var(--gold); background: var(--gold-10);
+      border: 1px solid rgba(255,215,0,0.2); padding: 3px 8px; border-radius: 6px; white-space: nowrap;
+    }
+    .btn-wa {
+      background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.3);
+      color: #25d366; padding: 5px 10px; border-radius: 6px;
+      font-size: 0.72rem; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;
+    }
+    .btn-wa:hover { background: rgba(37,211,102,0.22); }
+    .empty-row td { text-align: center; padding: 40px; color: var(--muted); }
+
+    /* SECTION TITLE */
+    .section-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .section-title span { font-size: 0.7rem; color: var(--muted); font-weight: 400; }
+
+    /* ORIGEM CHART */
+    .origem-list { display: flex; flex-direction: column; gap: 8px; }
+    .origem-row { display: flex; align-items: center; gap: 10px; }
+    .origem-bar-wrap { flex: 1; background: var(--bg3); border-radius: 4px; height: 6px; overflow: hidden; }
+    .origem-bar { height: 100%; background: var(--gold); border-radius: 4px; transition: width 0.5s; }
+    .origem-label { font-size: 0.75rem; color: var(--muted); width: 90px; }
+    .origem-count { font-size: 0.75rem; color: #fff; font-weight: 700; width: 24px; text-align: right; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="logo">⚡ VOLTZ</div>
+    <p>Painel Admin — Leads & Rastreamento</p>
+    <input type="password" id="senhaInput" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')entrar()"/>
+    <button onclick="entrar()">Entrar</button>
+    <div class="login-error" id="loginError">Senha incorreta.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="topbar">
+    <div class="topbar-brand">⚡ <span>VOLTZ S.I</span> — Admin</div>
+    <div class="topbar-right">
+      <span id="topDate" style="font-size:0.78rem;color:#666;"></span>
+      <button class="btn-logout" onclick="sair()">Sair</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- METRICS -->
+    <div class="metrics" id="metricsGrid"></div>
+
+    <!-- LEADS TABLE -->
+    <div class="section-title">📋 Leads Capturados <span id="totalLabel"></span></div>
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="🔍 Buscar nome, telefone ou código..." oninput="renderTabela()"/>
+      <select id="filtroParceiro" onchange="renderTabela()">
+        <option value="">Todos os parceiros</option>
+      </select>
+      <select id="filtroOrigem" onchange="renderTabela()">
+        <option value="">Todas as origens</option>
+      </select>
+      <button class="btn-export" onclick="exportarCSV()">📥 Exportar CSV</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Data</th>
+            <th>Nome</th>
+            <th>WhatsApp</th>
+            <th>Parceiro</th>
+            <th>Necessidade</th>
+            <th>Origem</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="leadsBody"></tbody>
+      </table>
+    </div>
+
+    <!-- ORIGENS -->
+    <div style="margin-top:32px;">
+      <div class="section-title">🌐 Origens do Tráfego</div>
+      <div class="origem-list" id="origensChart"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SENHA = 'voltz2026'; // alterar aqui para mudar a senha
+
+  function entrar() {
+    const v = document.getElementById('senhaInput').value;
+    if (v === SENHA) {
+      sessionStorage.setItem('voltz_admin', '1');
+      mostrarDashboard();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+
+  function sair() {
+    sessionStorage.removeItem('voltz_admin');
+    location.reload();
+  }
+
+  function carregarLeads() {
+    return JSON.parse(localStorage.getItem('voltz_leads') || '[]');
+  }
+
+  function mostrarDashboard() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('topDate').textContent = new Date().toLocaleString('pt-BR');
+    renderMetrics();
+    popularFiltros();
+    renderTabela();
+    renderOrigens();
+  }
+
+  function renderMetrics() {
+    const leads = carregarLeads();
+    const hoje = new Date().toDateString();
+    const hoje_leads = leads.filter(l => new Date(l.data).toDateString() === hoje);
+    const parceiros = [...new Set(leads.map(l => l.parceiro))];
+    const origens = [...new Set(leads.map(l => l.origem))];
+
+    document.getElementById('metricsGrid').innerHTML = `
+      <div class="metric-card"><div class="metric-label">Total de Leads</div><div class="metric-value gold">${leads.length}</div></div>
+      <div class="metric-card"><div class="metric-label">Leads Hoje</div><div class="metric-value green">${hoje_leads.length}</div></div>
+      <div class="metric-card"><div class="metric-label">Parceiros Ativos</div><div class="metric-value blue">${parceiros.length}</div></div>
+      <div class="metric-card"><div class="metric-label">Origens Distintas</div><div class="metric-value">${origens.length}</div></div>
+    `;
+  }
+
+  function popularFiltros() {
+    const leads = carregarLeads();
+    const parceiros = [...new Set(leads.map(l => l.parceiro))];
+    const origens   = [...new Set(leads.map(l => l.origem))];
+    const selP = document.getElementById('filtroParceiro');
+    const selO = document.getElementById('filtroOrigem');
+    parceiros.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; selP.appendChild(o); });
+    origens.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = o; selO.appendChild(op); });
+  }
+
+  function renderTabela() {
+    const leads = carregarLeads();
+    const busca = document.getElementById('searchInput').value.toLowerCase();
+    const filP  = document.getElementById('filtroParceiro').value;
+    const filO  = document.getElementById('filtroOrigem').value;
+
+    const filtrados = leads.filter(l => {
+      const q = busca ? (l.nome+l.tel+l.codigo).toLowerCase().includes(busca) : true;
+      const p = filP ? l.parceiro === filP : true;
+      const o = filO ? l.origem === filO : true;
+      return q && p && o;
+    }).reverse();
+
+    document.getElementById('totalLabel').textContent = `(${filtrados.length} resultado${filtrados.length !== 1 ? 's' : ''})`;
+    const tbody = document.getElementById('leadsBody');
+
+    if (filtrados.length === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="8">Nenhum lead encontrado.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtrados.map(l => {
+      const dt = new Date(l.data);
+      const tel = l.tel.replace(/\D/g, '');
+      const telWA = tel.startsWith('55') ? tel : '55' + tel;
+      const msgWA = encodeURIComponent(`Olá ${l.nome}! Aqui é da VOLTZ S.I. Vi que você se interessou em ${l.necessidade}. Podemos conversar?`);
+      return `
+        <tr>
+          <td><span class="code-chip">${l.codigo}</span></td>
+          <td style="white-space:nowrap;color:#888;font-size:0.75rem;">${dt.toLocaleDateString('pt-BR')}<br>${dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</td>
+          <td style="font-weight:700;">${l.nome}</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;">${l.tel}</td>
+          <td><span class="parceiro-chip">${l.parceiro}</span></td>
+          <td style="color:#aaa;max-width:180px;">${l.necessidade}</td>
+          <td><span class="origem-chip">${l.origem}</span></td>
+          <td><a class="btn-wa" href="https://wa.me/${telWA}?text=${msgWA}" target="_blank">📲 Contatar</a></td>
+        </tr>`;
+    }).join('');
+  }
+
+  function renderOrigens() {
+    const leads = carregarLeads();
+    if (leads.length === 0) { document.getElementById('origensChart').innerHTML = '<p style="color:#666;font-size:0.8rem;">Sem dados ainda.</p>'; return; }
+    const contagem = {};
+    leads.forEach(l => { contagem[l.origem] = (contagem[l.origem] || 0) + 1; });
+    const sorted = Object.entries(contagem).sort((a,b) => b[1]-a[1]);
+    const max = sorted[0][1];
+    document.getElementById('origensChart').innerHTML = sorted.map(([origem, count]) => `
+      <div class="origem-row">
+        <span class="origem-label">${origem}</span>
+        <div class="origem-bar-wrap"><div class="origem-bar" style="width:${(count/max*100).toFixed(0)}%"></div></div>
+        <span class="origem-count">${count}</span>
+      </div>`).join('');
+  }
+
+  function exportarCSV() {
+    const leads = carregarLeads();
+    const header = 'Codigo,Data,Nome,Telefone,Parceiro,Necessidade,Observacao,Origem\n';
+    const rows = leads.map(l =>
+      `"${l.codigo}","${new Date(l.data).toLocaleString('pt-BR')}","${l.nome}","${l.tel}","${l.parceiro}","${l.necessidade}","${l.obs||''}","${l.origem}"`
+    ).join('\n');
+    const blob = new Blob([header+rows], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url;
+    a.download = `leads-voltz-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Auto-login se sessão ativa
+  if (sessionStorage.getItem('voltz_admin') === '1') mostrarDashboard();
+</script>
+</body>
+</html>
