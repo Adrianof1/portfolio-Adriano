@@ -742,7 +742,7 @@
     <div class="grid4">
       <a href="https://pcpinturasthe.netlify.app/" target="_blank" rel="noopener noreferrer" class="partner fu" style="text-decoration:none;"><div class="partner-logo-box"><img src="parceiro-pc-pinturas.png" alt="PC Pinturas"/></div><div class="partner-name">PC Pinturas</div><div class="partner-area">Pintura Residencial & Comercial</div><div class="badge-official">parceiro oficial</div></a>
       <a href="https://orcafacil.voltzsi.com.br/" target="_blank" rel="noopener noreferrer" class="partner fu" style="text-decoration:none;"><div class="partner-logo-box"><img src="orcafacil-logo.png" alt="OrçaFácil"/></div><div class="partner-name">OrçaFácil</div><div class="partner-area">Plataforma de Gestão & Orçamentos</div><div class="badge-official">by VOLTZ S.I</div></a>
-      <div class="partner fu" style="cursor:pointer;" onclick="abrirLead('eon-solar')"><div class="partner-logo-box"><img src="eonsolar-logo.png" alt="EON Solar"/></div><div class="partner-name">EON Solar</div><div class="partner-area">Energia Solar Fotovoltaica</div><div class="badge-lead">solicitar indicação</div></div>
+      <div class="partner fu" style="cursor:pointer;" onclick="abrirLead('eon-solar')"><div class="partner-logo-box"><img src="eonsolar-logo.png" alt="EON Solar"/></div><div class="partner-name">EON Solar</div><div class="partner-area">Energia Solar Fotovoltaica</div><div class="badge-lead">solicitar cotação</div></div>
       <div class="partner fu"><div class="partner-ico">⚡</div><div class="partner-name">WEG</div><div class="partner-area">Motores & Automação</div><div class="badge-soon">em breve</div></div>
       <div class="partner fu"><div class="partner-ico">📷</div><div class="partner-name">Intelbras</div><div class="partner-area">Segurança & Telecom</div><div class="badge-soon">em breve</div></div>
       <div class="partner fu"><div class="partner-ico">☀️</div><div class="partner-name">Fronius</div><div class="partner-area">Inversores Solares</div><div class="badge-soon">em breve</div></div>
@@ -982,7 +982,7 @@
   const PARCEIROS = {
     'eon-solar': {
       nome: 'EON Solar',
-      logo: 'eonsolar-logo.jpg',
+      logo: 'eonsolar-logo.png',
       whatsapp: 'AGUARDANDO_NUMERO', // substituir pelo número da EON Solar
       area: 'Energia Solar Fotovoltaica',
       opcoes: [
@@ -1029,7 +1029,7 @@
     parceiroCurrent = partnerId;
     document.getElementById('leadLogoImg').src = p.logo;
     document.getElementById('leadLogoImg').alt = p.nome;
-    document.getElementById('leadTitulo').textContent = `Indicação → ${p.nome}`;
+    document.getElementById('leadTitulo').textContent = `Cotação → ${p.nome}`;
     document.getElementById('leadSub').textContent = `Preencha seus dados. Vamos conectar você à ${p.nome} pela VOLTZ S.I.`;
     // Preenche select de necessidades
     const sel = document.getElementById('leadNecessidade');
@@ -1142,7 +1142,7 @@
     <div class="lead-modal-logo" id="leadLogo">
       <img id="leadLogoImg" src="" alt=""/>
     </div>
-    <h3 id="leadTitulo">Solicitar Indicação</h3>
+    <h3 id="leadTitulo">Solicitar Cotação</h3>
     <p class="lead-sub" id="leadSub">Preencha seus dados e entraremos em contato.</p>
     <form class="lead-form" id="leadForm" onsubmit="enviarLead(event)">
       <input type="text" id="leadNome" placeholder="Seu nome completo" required maxlength="80"/>
