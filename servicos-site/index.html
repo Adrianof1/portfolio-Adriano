@@ -982,7 +982,7 @@
   const PARCEIROS = {
     'eon-solar': {
       nome: 'EON Solar',
-      logo: 'eonsolar-logo.jpg',
+      logo: 'eonsolar-logo.png',
       whatsapp: 'AGUARDANDO_NUMERO', // substituir pelo número da EON Solar
       area: 'Energia Solar Fotovoltaica',
       opcoes: [
@@ -1029,7 +1029,7 @@
     parceiroCurrent = partnerId;
     document.getElementById('leadLogoImg').src = p.logo;
     document.getElementById('leadLogoImg').alt = p.nome;
-    document.getElementById('leadTitulo').textContent = `Indicação → ${p.nome}`;
+    document.getElementById('leadTitulo').textContent = `Cotação → ${p.nome}`;
     document.getElementById('leadSub').textContent = `Preencha seus dados. Vamos conectar você à ${p.nome} pela VOLTZ S.I.`;
     // Preenche select de necessidades
     const sel = document.getElementById('leadNecessidade');
@@ -1142,7 +1142,7 @@
     <div class="lead-modal-logo" id="leadLogo">
       <img id="leadLogoImg" src="" alt=""/>
     </div>
-    <h3 id="leadTitulo">Solicitar Indicação</h3>
+    <h3 id="leadTitulo">Solicitar Cotação</h3>
     <p class="lead-sub" id="leadSub">Preencha seus dados e entraremos em contato.</p>
     <form class="lead-form" id="leadForm" onsubmit="enviarLead(event)">
       <input type="text" id="leadNome" placeholder="Seu nome completo" required maxlength="80"/>
