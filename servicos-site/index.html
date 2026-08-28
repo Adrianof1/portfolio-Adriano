@@ -216,6 +216,58 @@
       color: var(--gold); background: rgba(255,215,0,0.10);
       border: 1px solid rgba(255,215,0,0.35); padding: 3px 10px; border-radius: 20px;
     }
+    .badge-lead {
+      margin-top: 10px; font-size: 0.58rem; font-family: monospace;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: #4ade80; background: rgba(74,222,128,0.10);
+      border: 1px solid rgba(74,222,128,0.35); padding: 3px 10px; border-radius: 20px;
+    }
+    /* ─── LEAD MODAL ─── */
+    .lead-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    .lead-overlay.active { display: flex; }
+    .lead-modal {
+      background: #111; border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 20px; padding: 36px 28px; width: 90%; max-width: 420px;
+      position: relative; animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    .lead-modal-close {
+      position: absolute; top: 16px; right: 16px; background: none;
+      border: none; color: #666; font-size: 1.4rem; cursor: pointer; line-height: 1;
+    }
+    .lead-modal-close:hover { color: #fff; }
+    .lead-modal-logo { width: 64px; height: 64px; background: #fff; border-radius: 12px; overflow: hidden; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
+    .lead-modal-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+    .lead-modal h3 { font-size: 1.1rem; font-weight: 900; color: #fff; text-align: center; margin-bottom: 4px; }
+    .lead-modal p.lead-sub { font-size: 0.78rem; color: #888; text-align: center; margin-bottom: 20px; }
+    .lead-form { display: flex; flex-direction: column; gap: 12px; }
+    .lead-form input, .lead-form select, .lead-form textarea {
+      background: #0d0d0d; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 12px 14px; color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.85rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { border-color: rgba(255,215,0,0.5); }
+    .lead-form select option { background: #111; }
+    .lead-form textarea { resize: none; height: 80px; }
+    .lead-btn {
+      background: var(--gold); color: #000; font-weight: 900;
+      font-size: 0.9rem; border: none; border-radius: 10px;
+      padding: 14px; cursor: pointer; transition: opacity 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .lead-btn:hover { opacity: 0.88; }
+    .lead-code-box {
+      display: none; background: rgba(74,222,128,0.08);
+      border: 1px solid rgba(74,222,128,0.3); border-radius: 10px;
+      padding: 14px; text-align: center; margin-top: 8px;
+    }
+    .lead-code-box p { font-size: 0.75rem; color: #888; margin-bottom: 4px; }
+    .lead-code-box strong { font-family: monospace; font-size: 1rem; color: #4ade80; letter-spacing: 0.1em; }
     .partner-logo-box {
       width: 72px; height: 72px; border-radius: 12px;
       background: #fff; border: 1px solid rgba(255,255,255,0.15);
@@ -693,6 +745,7 @@
     <div class="grid4">
       <a href="https://pcpinturasthe.netlify.app/" target="_blank" rel="noopener noreferrer" class="partner fu" style="text-decoration:none;"><div class="partner-logo-box"><img src="parceiro-pc-pinturas.png" alt="PC Pinturas"/></div><div class="partner-name">PC Pinturas</div><div class="partner-area">Pintura Residencial & Comercial</div><div class="badge-official">parceiro oficial</div></a>
       <a href="https://orcafacil.voltzsi.com.br/" target="_blank" rel="noopener noreferrer" class="partner fu" style="text-decoration:none;"><div class="partner-logo-box"><img src="orcafacil-logo.png" alt="OrçaFácil"/></div><div class="partner-name">OrçaFácil</div><div class="partner-area">Plataforma de Gestão & Orçamentos</div><div class="badge-official">by VOLTZ S.I</div></a>
+      <div class="partner fu" style="cursor:pointer;" onclick="abrirLead('eon-solar')"><div class="partner-logo-box"><img src="eonsolar-logo.jpg" alt="EON Solar"/></div><div class="partner-name">EON Solar</div><div class="partner-area">Energia Solar Fotovoltaica</div><div class="badge-lead">solicitar indicação</div></div>
       <div class="partner fu"><div class="partner-ico">⚡</div><div class="partner-name">WEG</div><div class="partner-area">Motores & Automação</div><div class="badge-soon">em breve</div></div>
       <div class="partner fu"><div class="partner-ico">📷</div><div class="partner-name">Intelbras</div><div class="partner-area">Segurança & Telecom</div><div class="badge-soon">em breve</div></div>
       <div class="partner fu"><div class="partner-ico">☀️</div><div class="partner-name">Fronius</div><div class="partner-area">Inversores Solares</div><div class="badge-soon">em breve</div></div>
@@ -923,7 +976,197 @@
     document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
     if (!isOpen) item.classList.add('open');
   }
+
+  /* ══════════════════════════════════════
+     SISTEMA DE LEADS & RASTREAMENTO
+  ══════════════════════════════════════ */
+
+  // Config dos parceiros ativos
+  const PARCEIROS = {
+    'eon-solar': {
+      nome: 'EON Solar',
+      logo: 'eonsolar-logo.jpg',
+      whatsapp: 'AGUARDANDO_NUMERO', // substituir pelo número da EON Solar
+      area: 'Energia Solar Fotovoltaica',
+      opcoes: [
+        'Energia solar residencial',
+        'Energia solar comercial/industrial',
+        'Bombeamento solar',
+        'Orçamento e consultoria',
+        'Outro'
+      ]
+    }
+  };
+
+  // WhatsApp VOLTZ S.I para notificações
+  const VOLTZ_WA = '5586999830819';
+
+  // Detecta origem do visitante
+  function detectarOrigem() {
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source');
+    const utmMedium = params.get('utm_medium');
+    const utmCampaign = params.get('utm_campaign');
+    if (utmSource) return `${utmSource}${utmMedium ? '/'+utmMedium : ''}${utmCampaign ? '/'+utmCampaign : ''}`;
+    const ref = document.referrer;
+    if (!ref) return 'direto';
+    if (ref.includes('google')) return 'google';
+    if (ref.includes('instagram')) return 'instagram';
+    if (ref.includes('facebook')) return 'facebook';
+    if (ref.includes('whatsapp')) return 'whatsapp';
+    return new URL(ref).hostname || 'outro';
+  }
+
+  // Gera código único VOLTZ-ANO-XXXX
+  function gerarCodigo() {
+    const leads = JSON.parse(localStorage.getItem('voltz_leads') || '[]');
+    const seq = String(leads.length + 1).padStart(4, '0');
+    return `VOLTZ-${new Date().getFullYear()}-${seq}`;
+  }
+
+  let parceiroCurrent = null;
+
+  function abrirLead(partnerId) {
+    const p = PARCEIROS[partnerId];
+    if (!p) return;
+    parceiroCurrent = partnerId;
+    document.getElementById('leadLogoImg').src = p.logo;
+    document.getElementById('leadLogoImg').alt = p.nome;
+    document.getElementById('leadTitulo').textContent = `Indicação → ${p.nome}`;
+    document.getElementById('leadSub').textContent = `Preencha seus dados. Vamos conectar você à ${p.nome} pela VOLTZ S.I.`;
+    // Preenche select de necessidades
+    const sel = document.getElementById('leadNecessidade');
+    sel.innerHTML = '<option value="" disabled selected>O que você precisa?</option>';
+    p.opcoes.forEach(op => {
+      const opt = document.createElement('option');
+      opt.value = op; opt.textContent = op;
+      sel.appendChild(opt);
+    });
+    document.getElementById('leadCodeBox').style.display = 'none';
+    document.getElementById('leadForm').reset();
+    document.getElementById('leadOverlay').classList.add('active');
+    // Rastreia abertura
+    registrarEvento('modal_aberto', partnerId);
+  }
+
+  function fecharLead() {
+    document.getElementById('leadOverlay').classList.remove('active');
+    parceiroCurrent = null;
+  }
+
+  // Fecha ao clicar fora do modal
+  document.getElementById('leadOverlay').addEventListener('click', function(e) {
+    if (e.target === this) fecharLead();
+  });
+
+  function enviarLead(e) {
+    e.preventDefault();
+    const p = PARCEIROS[parceiroCurrent];
+    if (!p) return;
+
+    const nome    = document.getElementById('leadNome').value.trim();
+    const tel     = document.getElementById('leadTel').value.trim();
+    const nec     = document.getElementById('leadNecessidade').value;
+    const obs     = document.getElementById('leadObs').value.trim();
+    const origem  = detectarOrigem();
+    const codigo  = gerarCodigo();
+    const agora   = new Date();
+
+    // Salva lead no localStorage
+    const lead = { codigo, parceiro: p.nome, parceiro_id: parceiroCurrent, nome, tel, necessidade: nec, obs, origem, data: agora.toISOString() };
+    const leads = JSON.parse(localStorage.getItem('voltz_leads') || '[]');
+    leads.push(lead);
+    localStorage.setItem('voltz_leads', JSON.stringify(leads));
+
+    // Mostra código na tela
+    document.getElementById('leadCodeText').textContent = codigo;
+    document.getElementById('leadCodeBox').style.display = 'block';
+
+    // Monta mensagens WhatsApp
+    const msgEon = encodeURIComponent(
+      `🔆 *Indicação VOLTZ S.I*\n` +
+      `Código: *${codigo}*\n` +
+      `━━━━━━━━━━━━━━━\n` +
+      `👤 Nome: ${nome}\n` +
+      `📱 WhatsApp: ${tel}\n` +
+      `⚡ Necessidade: ${nec}${obs ? '\n📝 Obs: '+obs : ''}\n` +
+      `🌐 Origem: ${origem}\n` +
+      `📅 ${agora.toLocaleString('pt-BR')}\n` +
+      `━━━━━━━━━━━━━━━\n` +
+      `Este lead foi gerado pelo site servicos.voltzsi.com.br`
+    );
+
+    const msgVoltz = encodeURIComponent(
+      `✅ *Novo lead #${codigo}*\n` +
+      `Parceiro: ${p.nome}\n` +
+      `👤 ${nome} | 📱 ${tel}\n` +
+      `⚡ ${nec}\n` +
+      `🌐 Origem: ${origem}\n` +
+      `📅 ${agora.toLocaleString('pt-BR')}`
+    );
+
+    // Rastreia envio
+    registrarEvento('lead_enviado', parceiroCurrent, { codigo, origem });
+
+    // Notifica VOLTZ S.I (Adriano)
+    window.open(`https://wa.me/${VOLTZ_WA}?text=${msgVoltz}`, '_blank');
+
+    // Redireciona para parceiro (com delay para o popup abrir)
+    setTimeout(() => {
+      if (p.whatsapp && p.whatsapp !== 'AGUARDANDO_NUMERO') {
+        window.location.href = `https://wa.me/${p.whatsapp}?text=${msgEon}`;
+      } else {
+        // Parceiro sem número ainda: fecha modal e mostra confirmação
+        fecharLead();
+        alert(`✅ Lead registrado!\nCódigo: ${codigo}\n\nEm breve nossa equipe entrará em contato para conectar você à ${p.nome}.`);
+      }
+    }, 800);
+  }
+
+  // Rastreia cliques em parceiros com link externo
+  document.querySelectorAll('a.partner').forEach(el => {
+    el.addEventListener('click', () => {
+      const nome = el.querySelector('.partner-name')?.textContent || 'desconhecido';
+      registrarEvento('clique_parceiro_link', nome, { origem: detectarOrigem() });
+    });
+  });
+
+  function registrarEvento(tipo, parceiro, extra = {}) {
+    const eventos = JSON.parse(localStorage.getItem('voltz_eventos') || '[]');
+    eventos.push({ tipo, parceiro, ...extra, data: new Date().toISOString() });
+    localStorage.setItem('voltz_eventos', JSON.stringify(eventos));
+  }
 </script>
+
+<!-- ═══ MODAL DE CAPTAÇÃO DE LEAD ═══ -->
+<div class="lead-overlay" id="leadOverlay">
+  <div class="lead-modal">
+    <button class="lead-modal-close" onclick="fecharLead()">✕</button>
+    <div class="lead-modal-logo" id="leadLogo">
+      <img id="leadLogoImg" src="" alt=""/>
+    </div>
+    <h3 id="leadTitulo">Solicitar Indicação</h3>
+    <p class="lead-sub" id="leadSub">Preencha seus dados e entraremos em contato.</p>
+    <form class="lead-form" id="leadForm" onsubmit="enviarLead(event)">
+      <input type="text" id="leadNome" placeholder="Seu nome completo" required maxlength="80"/>
+      <input type="tel" id="leadTel" placeholder="Seu WhatsApp (com DDD)" required maxlength="20"/>
+      <select id="leadNecessidade" required>
+        <option value="" disabled selected>O que você precisa?</option>
+        <option value="Energia solar residencial">Energia solar residencial</option>
+        <option value="Energia solar comercial/industrial">Energia solar comercial/industrial</option>
+        <option value="Bombeamento solar">Bombeamento solar</option>
+        <option value="Orçamento e consultoria">Orçamento e consultoria</option>
+        <option value="Outro">Outro</option>
+      </select>
+      <textarea id="leadObs" placeholder="Algum detalhe adicional? (opcional)"></textarea>
+      <button type="submit" class="lead-btn">📲 Enviar e ir para o WhatsApp</button>
+      <div class="lead-code-box" id="leadCodeBox">
+        <p>Código da sua indicação:</p>
+        <strong id="leadCodeText"></strong>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- BOTÃO WHATSAPP FLUTUANTE -->
 <a href="https://wa.me/5586999830819?text=Olá! Vim pelo site e gostaria de um orçamento." target="_blank" class="wa-float" title="Solicitar orçamento grátis">
