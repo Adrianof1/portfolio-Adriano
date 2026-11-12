@@ -485,6 +485,92 @@ function App() {
               </div>
             </section>
 
+            {/* ══ DEPOIMENTOS ══ */}
+            <section className="py-24 px-4 border-t border-white/10" style={{ background: is3D ? 'rgba(0,0,0,0.80)' : '#070707', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
+              <div className="max-w-6xl mx-auto">
+                <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-center mb-12">
+                  <h2 className="text-3xl font-bold flex items-center justify-center gap-2">
+                    <span className="text-[#FFD700]">★</span> O que dizem os clientes
+                  </h2>
+                  <p className="text-gray-500 text-sm mt-3">Resultados reais de quem escolheu a VOLTZ S.I</p>
+                </motion.div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {[
+                    {
+                      stars: 5,
+                      text: "Instalação do sistema solar impecável. A VOLTZ dimensionou o projeto certinho, minha conta de luz caiu mais de 90%. Atendimento rápido e profissional do início ao fim.",
+                      name: "Carlos Eduardo",
+                      role: "Cliente Solar — Teresina, PI",
+                      avatar: "CE",
+                    },
+                    {
+                      stars: 5,
+                      text: "Contratei a automação da minha casa e ficou incrível! Alexa controlando tudo — ar-condicionado, luzes, portão. O Adriano explicou cada detalhe e o suporte pós-instalação foi excelente.",
+                      name: "Mariana Sousa",
+                      role: "Cliente Smart Home — Parnaíba, PI",
+                      avatar: "MS",
+                    },
+                    {
+                      stars: 5,
+                      text: "Sistema de câmeras CFTV instalado em 1 dia. Qualidade top e o app no celular funciona perfeitinho. Já recomendei para três vizinhos. VOLTZ S.I é confiança.",
+                      name: "Roberto Almeida",
+                      role: "Cliente Segurança — Timon, MA",
+                      avatar: "RA",
+                    },
+                    {
+                      stars: 5,
+                      text: "Fizemos um sistema de bombeamento solar para nosso sítio. Resolveu o problema de falta de água de vez, sem conta de luz. Projeto completo com laudo técnico incluso.",
+                      name: "José Ferreira",
+                      role: "Cliente Rural — Floriano, PI",
+                      avatar: "JF",
+                    },
+                    {
+                      stars: 5,
+                      text: "Site novo para minha empresa ficou exatamente como eu queria. Carrega rápido, aparece no Google e as consultas pelo WhatsApp triplicaram no primeiro mês.",
+                      name: "Ana Paula Leal",
+                      role: "Cliente Web — Teresina, PI",
+                      avatar: "AL",
+                    },
+                    {
+                      stars: 5,
+                      text: "Limpeza dos painéis solares fez diferença imediata — a geração voltou ao nível de quando instalei. Equipe pontual, cuidadosa e ainda entregou relatório de desempenho.",
+                      name: "Francisco Nunes",
+                      role: "Cliente Manutenção Solar — Campo Maior, PI",
+                      avatar: "FN",
+                    },
+                  ].map((dep, i) => (
+                    <motion.div key={i} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*0.08}}>
+                      <div className="bg-neutral-900/80 border border-white/10 rounded-xl p-6 h-full flex flex-col gap-4 hover:border-[#FFD700]/30 transition-colors">
+                        <div className="flex gap-1">
+                          {Array.from({length: dep.stars}).map((_,s) => (
+                            <span key={s} className="text-[#FFD700] text-sm">★</span>
+                          ))}
+                        </div>
+                        <p className="text-gray-300 text-sm leading-relaxed flex-1">"{dep.text}"</p>
+                        <div className="flex items-center gap-3 pt-2 border-t border-white/10">
+                          <div className="w-10 h-10 rounded-full bg-[#FFD700]/20 border border-[#FFD700]/30 flex items-center justify-center text-[#FFD700] font-bold text-xs flex-shrink-0">
+                            {dep.avatar}
+                          </div>
+                          <div>
+                            <p className="text-white font-semibold text-sm">{dep.name}</p>
+                            <p className="text-gray-500 text-xs">{dep.role}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} className="mt-10 text-center">
+                  <a href={`https://wa.me/${WHATSAPP}?text=Olá! Gostaria de um orçamento para meu projeto.`} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#FFD700] hover:bg-yellow-400 text-black px-8 py-3 rounded-lg text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]">
+                    <MessageCircle size={16}/> Quero meu orçamento grátis
+                  </a>
+                </motion.div>
+              </div>
+            </section>
+
             {/* URGÊNCIA */}
             <div className="py-5 px-4 text-center border-t border-[#FFD700]/20" style={{ background: is3D ? 'rgba(0,0,0,0.85)' : '#080808' }}>
               <p className="text-[#FFD700]/90 text-sm font-semibold">
