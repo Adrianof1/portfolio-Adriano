@@ -1,10 +1,11 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback, useEffect, lazy, Suspense } from "react";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Linkedin, MessageCircle, ExternalLink, ShieldCheck, Code2, Server, Smartphone, Github, ArrowDown, Zap, Sun, Wrench, Camera, Car, Building2, Droplets } from "lucide-react";
 import Intro from "./components/Intro";
 import HackerText from "./components/HackerText";
-import Scene3D from "./components/Scene3D";
+const Scene3D = lazy(() => import("./components/Scene3D"));
+import SimuladorSolar from "./components/SimuladorSolar";
 
 /* ╔═══════════════════════════════════════════════════════════════╗
  * ║  VOLTZ GUARD — INTEGRAÇÃO DE BLOQUEIO AUTOMÁTICO             ║
@@ -157,8 +158,8 @@ function App() {
 
   return (
     <HelmetProvider>
-      {/* canvas 3D fixo atrás de tudo (desktop only) */}
-      {is3D && <Scene3D scrollProgress={scrollProgress} />}
+      {/* canvas 3D — carrega só em desktop via lazy import */}
+      {is3D && <Suspense fallback={null}><Scene3D scrollProgress={scrollProgress} /></Suspense>}
 
       <div className="min-h-screen text-gray-100 font-sans selection:bg-yellow-500 selection:text-black" style={{ background: is3D ? 'transparent' : '#050505' }}>
         <Helmet>
@@ -291,6 +292,11 @@ function App() {
               </div>
             </section>
 
+            {/* ══ SIMULADOR SOLAR ══ */}
+            <div style={{ background: is3D ? 'rgba(0,0,0,0.80)' : '#070707', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
+              <SimuladorSolar />
+            </div>
+
             {/* ══ ESPECIALIDADES ══ */}
             <section className="py-24 px-4 border-t border-white/10" style={{ background: is3D ? 'rgba(0,0,0,0.72)' : '#050505', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
               <div className="max-w-6xl mx-auto">
@@ -302,7 +308,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.1}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Painéis Solares" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Painéis Solares" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Sun size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Energias Renováveis</span></div>
@@ -315,7 +321,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Desenvolvimento de Software" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Desenvolvimento de Software" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Code2 size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Engenharia de Software</span></div>
@@ -328,7 +334,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="/bombeamento-solar.jpg" alt="Bombeamento Solar e Zonas Remotas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="/bombeamento-solar.jpg" alt="Bombeamento Solar e Zonas Remotas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Droplets size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Bombeamento & Zonas Remotas</span></div>
@@ -341,7 +347,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80" alt="Carregador para Veículo Elétrico" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80" alt="Carregador para Veículo Elétrico" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Car size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Elétrica & EV</span></div>
@@ -354,7 +360,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80" alt="Segurança Eletrônica" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80" alt="Segurança Eletrônica" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Camera size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Segurança Eletrônica</span></div>
@@ -367,7 +373,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.4}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="/smarthome-card.png" alt="Casa Inteligente" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="/smarthome-card.png" alt="Casa Inteligente" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Smartphone size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Casa Inteligente & IoT</span></div>
@@ -380,7 +386,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.5}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80" alt="Manutenção de Hardware" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80" alt="Manutenção de Hardware" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6 flex flex-col items-start gap-4">
                         <div className="flex-shrink-0 p-3 bg-black rounded-xl border border-white/10"><Wrench size={28} className="text-[#FFD700]"/></div>
@@ -484,6 +490,93 @@ function App() {
                 </motion.div>
               </div>
             </section>
+
+            {/* ══ DEPOIMENTOS — arquivado, descomentar quando tiver depoimentos reais ══
+            <section className="py-24 px-4 border-t border-white/10" style={{ background: is3D ? 'rgba(0,0,0,0.80)' : '#070707', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
+              <div className="max-w-6xl mx-auto">
+                <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-center mb-12">
+                  <h2 className="text-3xl font-bold flex items-center justify-center gap-2">
+                    <span className="text-[#FFD700]">★</span> O que dizem os clientes
+                  </h2>
+                  <p className="text-gray-500 text-sm mt-3">Resultados reais de quem escolheu a VOLTZ S.I</p>
+                </motion.div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {[
+                    {
+                      stars: 5,
+                      text: "Instalação do sistema solar impecável. A VOLTZ dimensionou o projeto certinho, minha conta de luz caiu mais de 90%. Atendimento rápido e profissional do início ao fim.",
+                      name: "Carlos Eduardo",
+                      role: "Cliente Solar — Teresina, PI",
+                      avatar: "CE",
+                    },
+                    {
+                      stars: 5,
+                      text: "Contratei a automação da minha casa e ficou incrível! Alexa controlando tudo — ar-condicionado, luzes, portão. O Adriano explicou cada detalhe e o suporte pós-instalação foi excelente.",
+                      name: "Mariana Sousa",
+                      role: "Cliente Smart Home — Parnaíba, PI",
+                      avatar: "MS",
+                    },
+                    {
+                      stars: 5,
+                      text: "Sistema de câmeras CFTV instalado em 1 dia. Qualidade top e o app no celular funciona perfeitinho. Já recomendei para três vizinhos. VOLTZ S.I é confiança.",
+                      name: "Roberto Almeida",
+                      role: "Cliente Segurança — Timon, MA",
+                      avatar: "RA",
+                    },
+                    {
+                      stars: 5,
+                      text: "Fizemos um sistema de bombeamento solar para nosso sítio. Resolveu o problema de falta de água de vez, sem conta de luz. Projeto completo com laudo técnico incluso.",
+                      name: "José Ferreira",
+                      role: "Cliente Rural — Floriano, PI",
+                      avatar: "JF",
+                    },
+                    {
+                      stars: 5,
+                      text: "Site novo para minha empresa ficou exatamente como eu queria. Carrega rápido, aparece no Google e as consultas pelo WhatsApp triplicaram no primeiro mês.",
+                      name: "Ana Paula Leal",
+                      role: "Cliente Web — Teresina, PI",
+                      avatar: "AL",
+                    },
+                    {
+                      stars: 5,
+                      text: "Limpeza dos painéis solares fez diferença imediata — a geração voltou ao nível de quando instalei. Equipe pontual, cuidadosa e ainda entregou relatório de desempenho.",
+                      name: "Francisco Nunes",
+                      role: "Cliente Manutenção Solar — Campo Maior, PI",
+                      avatar: "FN",
+                    },
+                  ].map((dep, i) => (
+                    <motion.div key={i} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*0.08}}>
+                      <div className="bg-neutral-900/80 border border-white/10 rounded-xl p-6 h-full flex flex-col gap-4 hover:border-[#FFD700]/30 transition-colors">
+                        <div className="flex gap-1">
+                          {Array.from({length: dep.stars}).map((_,s) => (
+                            <span key={s} className="text-[#FFD700] text-sm">★</span>
+                          ))}
+                        </div>
+                        <p className="text-gray-300 text-sm leading-relaxed flex-1">"{dep.text}"</p>
+                        <div className="flex items-center gap-3 pt-2 border-t border-white/10">
+                          <div className="w-10 h-10 rounded-full bg-[#FFD700]/20 border border-[#FFD700]/30 flex items-center justify-center text-[#FFD700] font-bold text-xs flex-shrink-0">
+                            {dep.avatar}
+                          </div>
+                          <div>
+                            <p className="text-white font-semibold text-sm">{dep.name}</p>
+                            <p className="text-gray-500 text-xs">{dep.role}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} className="mt-10 text-center">
+                  <a href={`https://wa.me/${WHATSAPP}?text=Olá! Gostaria de um orçamento para meu projeto.`} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#FFD700] hover:bg-yellow-400 text-black px-8 py-3 rounded-lg text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]">
+                    <MessageCircle size={16}/> Quero meu orçamento grátis
+                  </a>
+                </motion.div>
+              </div>
+            </section>
+            ══ FIM DEPOIMENTOS ══ */}
 
             {/* URGÊNCIA */}
             <div className="py-5 px-4 text-center border-t border-[#FFD700]/20" style={{ background: is3D ? 'rgba(0,0,0,0.85)' : '#080808' }}>
