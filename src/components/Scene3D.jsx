@@ -117,12 +117,8 @@ export default function Scene3D({ scrollProgress }) {
     const spin = (m, rx, ry, rz) => { const f=floaters.find(f=>f.mesh===m); if(f){f.rx=rx;f.ry=ry;f.rz=rz;} };
 
     /* ─── HERO (Y≈0) ─── */
-    const t1 = add(new THREE.TorusGeometry(3,    0.07, 16, 120), gold,    [0, 0, 0],    [],                0.5, 0.25);
-    const t2 = add(new THREE.TorusGeometry(2,    0.04, 12,  80), goldDim, [0, 0, 0],    [Math.PI/2.5,0,0], 0.4, 0.18);
     const i1 = add(new THREE.IcosahedronGeometry(0.7,1),          gold,    [3.5, 0.5,-2],[],                0.7, 0.22);
     const i2 = add(new THREE.IcosahedronGeometry(0.38,0),         gold,    [-3, -1,-1.5],[],                0.9, 0.16);
-    spin(t1, 0.003, 0,     0.002);
-    spin(t2, 0.005, 0.001, 0    );
     spin(i1, 0.003, 0.006, 0.002);
     spin(i2, 0.004, 0.005, 0.003);
 
