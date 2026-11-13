@@ -130,9 +130,21 @@ export default function SimuladorSolar() {
                 <MessageCircle size={18} />
                 Quero um orçamento para meu sistema — Economia de {fmt(calc.economiaMes)}/mês
               </a>
-              <p className="text-xs text-gray-600 text-center mt-3">
-                * Estimativa baseada na tarifa média Equatorial Piauí e irradiação local. Orçamento real gratuito e sem compromisso.
-              </p>
+              <div className="mt-4 flex gap-3 bg-white/5 border border-white/10 rounded-xl p-4 text-left">
+                <span className="text-yellow-500 text-lg flex-shrink-0 mt-0.5">⚠️</span>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  <strong className="text-gray-300">Esta é apenas uma simulação.</strong> Os valores são estimativas baseadas na tarifa média da Equatorial Piauí e na irradiação solar média da região — o resultado real pode variar conforme o consumo, equipamentos e condições do local.{" "}
+                  <a
+                    href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá VOLTZ! Quero um orçamento real e personalizado para energia solar na minha residência/empresa.")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#FFD700] underline underline-offset-2 hover:text-yellow-300 transition-colors"
+                  >
+                    Fale com nosso integrador pelo WhatsApp
+                  </a>{" "}
+                  para um dimensionamento técnico gratuito e sem compromisso.
+                </p>
+              </div>
             </>
           ) : (
             <p className="text-center text-gray-500 text-sm py-4">Digite um valor acima de R$ 100 para ver a simulação.</p>
