@@ -18,7 +18,7 @@ body {
 .marquee-track {
   display: inline-flex;
   white-space: nowrap;
-  animation: marquee-scroll 40s linear infinite;
+  animation: marquee-scroll 90s linear infinite;
 }
 
 @keyframes marquee-scroll {
