@@ -1,10 +1,11 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback, useEffect, lazy, Suspense } from "react";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Linkedin, MessageCircle, ExternalLink, ShieldCheck, Code2, Server, Smartphone, Github, ArrowDown, Zap, Sun, Wrench, Camera, Car, Building2, Droplets } from "lucide-react";
 import Intro from "./components/Intro";
 import HackerText from "./components/HackerText";
-import Scene3D from "./components/Scene3D";
+const Scene3D = lazy(() => import("./components/Scene3D"));
+import SimuladorSolar from "./components/SimuladorSolar";
 
 /* ╔═══════════════════════════════════════════════════════════════╗
  * ║  VOLTZ GUARD — INTEGRAÇÃO DE BLOQUEIO AUTOMÁTICO             ║
@@ -157,8 +158,8 @@ function App() {
 
   return (
     <HelmetProvider>
-      {/* canvas 3D fixo atrás de tudo (desktop only) */}
-      {is3D && <Scene3D scrollProgress={scrollProgress} />}
+      {/* canvas 3D — carrega só em desktop via lazy import */}
+      {is3D && <Suspense fallback={null}><Scene3D scrollProgress={scrollProgress} /></Suspense>}
 
       <div className="min-h-screen text-gray-100 font-sans selection:bg-yellow-500 selection:text-black" style={{ background: is3D ? 'transparent' : '#050505' }}>
         <Helmet>
@@ -291,6 +292,11 @@ function App() {
               </div>
             </section>
 
+            {/* ══ SIMULADOR SOLAR ══ */}
+            <div style={{ background: is3D ? 'rgba(0,0,0,0.80)' : '#070707', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
+              <SimuladorSolar />
+            </div>
+
             {/* ══ ESPECIALIDADES ══ */}
             <section className="py-24 px-4 border-t border-white/10" style={{ background: is3D ? 'rgba(0,0,0,0.72)' : '#050505', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
               <div className="max-w-6xl mx-auto">
@@ -302,7 +308,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.1}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Painéis Solares" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Painéis Solares" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Sun size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Energias Renováveis</span></div>
@@ -315,7 +321,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Desenvolvimento de Software" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Desenvolvimento de Software" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Code2 size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Engenharia de Software</span></div>
@@ -328,7 +334,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.2}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="/bombeamento-solar.jpg" alt="Bombeamento Solar e Zonas Remotas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="/bombeamento-solar.jpg" alt="Bombeamento Solar e Zonas Remotas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Droplets size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Bombeamento & Zonas Remotas</span></div>
@@ -341,7 +347,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80" alt="Carregador para Veículo Elétrico" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80" alt="Carregador para Veículo Elétrico" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Car size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Elétrica & EV</span></div>
@@ -354,7 +360,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.3}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80" alt="Segurança Eletrônica" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80" alt="Segurança Eletrônica" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Camera size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Segurança Eletrônica</span></div>
@@ -367,7 +373,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.4}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="/smarthome-card.png" alt="Casa Inteligente" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="/smarthome-card.png" alt="Casa Inteligente" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3"><Smartphone size={20} className="text-[#FFD700]"/><span className="text-xs font-mono text-gray-500 bg-black px-2 py-1 rounded">Casa Inteligente & IoT</span></div>
@@ -380,7 +386,7 @@ function App() {
                   <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:0.5}}>
                     <TiltCard className="group bg-neutral-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-[#FFD700]/50 transition-colors h-full">
                       <div className="h-52 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80" alt="Manutenção de Hardware" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&q=80" alt="Manutenção de Hardware" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async"/>
                       </div>
                       <div className="p-6 flex flex-col items-start gap-4">
                         <div className="flex-shrink-0 p-3 bg-black rounded-xl border border-white/10"><Wrench size={28} className="text-[#FFD700]"/></div>
