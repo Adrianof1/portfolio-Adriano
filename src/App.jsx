@@ -485,7 +485,7 @@ function App() {
               </div>
             </section>
 
-            {/* ══ DEPOIMENTOS ══ */}
+            {/* ══ DEPOIMENTOS — arquivado, descomentar quando tiver depoimentos reais ══
             <section className="py-24 px-4 border-t border-white/10" style={{ background: is3D ? 'rgba(0,0,0,0.80)' : '#070707', backdropFilter: is3D ? 'blur(2px)' : 'none' }}>
               <div className="max-w-6xl mx-auto">
                 <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-center mb-12">
@@ -570,6 +570,7 @@ function App() {
                 </motion.div>
               </div>
             </section>
+            ══ FIM DEPOIMENTOS ══ */}
 
             {/* URGÊNCIA */}
             <div className="py-5 px-4 text-center border-t border-[#FFD700]/20" style={{ background: is3D ? 'rgba(0,0,0,0.85)' : '#080808' }}>
