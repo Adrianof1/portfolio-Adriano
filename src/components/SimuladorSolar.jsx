@@ -1,8 +1,19 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, Sun, Zap } from "lucide-react";
+import { MessageCircle, Sun, Zap, Info } from "lucide-react";
 
 const WHATSAPP = import.meta.env.VITE_WHATSAPP || "5586999830819";
+
+// Valores reais extraídos da fatura Equatorial Piauí (out/2026)
+const TARIFA        = 0.9515;   // R$/kWh — tarifa cheia com ICMS/PIS/COFINS
+const FIO_B         = 0.3010;   // R$/kWh — Parc. Inj. s/ Desc. GD2 (Lei 14.300/22)
+const CIP_KWH       = 0.1136;   // R$/kWh — CIP Teresina (equiv. 85,11 / 749 kWh)
+const TOTAL_KWH     = TARIFA + CIP_KWH;          // ~1,065 R$/kWh (custo real total)
+const ECONOMIA_KWH  = TARIFA - FIO_B;             // 0,6505 R$/kWh (economia líquida)
+const PCT_ECONOMIA  = ECONOMIA_KWH / TOTAL_KWH;  // ~61%
+const CO2_FATOR     = 0.136;    // kg CO₂/kWh — grid Brasil (SEEG 2024)
+const INVEST_MULT   = 30;       // R$ investimento por R$1 de conta — ~5 kWp a R$5.000/kWp
+const HS_PICO       = 5.5;      // horas de sol pico/dia — Piauí (Atlas INPE)
 
 function fmt(n) {
   return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -14,18 +25,26 @@ export default function SimuladorSolar() {
   const calc = useMemo(() => {
     const c = Number(conta) || 0;
     if (c < 100) return null;
-    const economiaMes  = c * 0.88;
+
+    const kwhMes       = c / TOTAL_KWH;
+    const economiaMes  = kwhMes * ECONOMIA_KWH;
+    const contaRest    = c - economiaMes;
     const economiaAno  = economiaMes * 12;
     const economia25   = economiaAno * 25;
-    const investimento = c * 42;
+    const investimento = c * INVEST_MULT;
     const payback      = investimento / economiaAno;
-    const kwhMes       = c / 0.92;
-    const co2Ano       = (kwhMes * 12 * 0.136) / 1000;
-    return { economiaMes, economiaAno, economia25, investimento, payback, co2Ano };
+    const co2Ano       = (kwhMes * 12 * CO2_FATOR) / 1000;
+    const pct          = Math.round(PCT_ECONOMIA * 100);
+
+    // Fio B + CIP breakdown
+    const fioBMes  = kwhMes * FIO_B;
+    const cipMes   = kwhMes * CIP_KWH;
+
+    return { kwhMes, economiaMes, contaRest, economiaAno, economia25, investimento, payback, co2Ano, pct, fioBMes, cipMes };
   }, [conta]);
 
   const msgWa = encodeURIComponent(
-    `Olá VOLTZ! Fiz a simulação no site: minha conta de luz é R$${conta}/mês. Quero saber mais sobre energia solar.`
+    `Olá VOLTZ! Fiz a simulação no site: minha conta de luz é R$${conta}/mês. Quero saber quanto posso economizar com energia solar.`
   );
 
   return (
@@ -44,7 +63,7 @@ export default function SimuladorSolar() {
             Quanto você economiza com <span className="text-[#FFD700]">energia solar</span>?
           </h2>
           <p className="text-gray-400 text-sm mt-2">
-            Baseado na irradiação solar do Piauí — uma das mais altas do Brasil
+            Baseado na <strong className="text-gray-300">tarifa real da Equatorial Piauí</strong> e na irradiação solar do Piauí — uma das mais altas do Brasil
           </p>
         </motion.div>
 
@@ -89,38 +108,67 @@ export default function SimuladorSolar() {
             </div>
           </div>
 
-          {/* Results */}
           {calc ? (
             <>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              {/* Headline de economia */}
+              <div className="bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-2xl p-5 mb-6 text-center">
+                <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">Sua economia estimada</p>
+                <p className="text-5xl font-black text-[#FFD700] mb-1">{fmt(calc.economiaMes)}<span className="text-lg font-semibold text-yellow-500">/mês</span></p>
+                <p className="text-gray-400 text-sm">
+                  Redução de <span className="text-[#FFD700] font-bold">{calc.pct}%</span> na sua conta de luz — de {fmt(Number(conta))} para apenas{" "}
+                  <span className="text-white font-semibold">{fmt(calc.contaRest)}/mês</span>
+                </p>
+              </div>
+
+              {/* Cards */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 {[
-                  { label: "Economia / mês",    value: fmt(calc.economiaMes),  sub: "na conta de luz",        gold: true  },
-                  { label: "Economia / ano",    value: fmt(calc.economiaAno),  sub: "dinheiro de volta",      gold: false },
-                  { label: "Em 25 anos",        value: fmt(calc.economia25),   sub: "vida útil do sistema",   gold: false },
-                  { label: "Retorno estimado",  value: `~${calc.payback.toFixed(1)} anos`, sub: "depois disso é lucro", gold: false },
+                  { label: "Economia / ano",    value: fmt(calc.economiaAno),  sub: "dinheiro de volta"   },
+                  { label: "Em 25 anos",        value: fmt(calc.economia25),   sub: "vida útil do sistema" },
+                  { label: "Retorno estimado",  value: `~${calc.payback.toFixed(1)} anos`, sub: "depois disso é lucro" },
+                  { label: "CO₂ evitado",       value: `${calc.co2Ano.toFixed(1)} ton`, sub: "por ano" },
                 ].map((item, i) => (
-                  <div
-                    key={i}
-                    className={`rounded-xl p-4 border ${item.gold ? "bg-[#FFD700]/10 border-[#FFD700]/30" : "bg-black/40 border-white/10"}`}
-                  >
+                  <div key={i} className="rounded-xl p-4 border bg-black/40 border-white/10">
                     <p className="text-xs text-gray-500 mb-1">{item.label}</p>
-                    <p className={`text-xl font-bold ${item.gold ? "text-[#FFD700]" : "text-white"}`}>{item.value}</p>
+                    <p className="text-xl font-bold text-white">{item.value}</p>
                     <p className="text-xs text-gray-600 mt-1">{item.sub}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-black/30 rounded-xl border border-white/5 mb-6">
+              {/* Por que ainda paga algo? */}
+              <div className="bg-black/40 border border-white/10 rounded-xl p-4 mb-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Info size={14} className="text-gray-400 flex-shrink-0" />
+                  <p className="text-xs font-semibold text-gray-300">Por que ainda restam {fmt(calc.contaRest)}/mês após o solar?</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-500">
+                  <div className="flex justify-between gap-2 bg-white/5 rounded-lg px-3 py-2">
+                    <span>Fio B / TUSD <span className="text-gray-600">(Lei 14.300/22)</span></span>
+                    <span className="text-gray-400 font-semibold">{fmt(calc.fioBMes)}</span>
+                  </div>
+                  <div className="flex justify-between gap-2 bg-white/5 rounded-lg px-3 py-2">
+                    <span>CIP <span className="text-gray-600">(iluminação pública)</span></span>
+                    <span className="text-gray-400 font-semibold">{fmt(calc.cipMes)}</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-600 mt-2 leading-relaxed">
+                  Esses encargos são obrigatórios por lei — toda unidade consumidora paga, mesmo com geração solar. Nenhuma empresa elimina isso. <span className="text-gray-400">O que podemos eliminar é tudo o mais.</span>
+                </p>
+              </div>
+
+              {/* Investimento */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 bg-black/30 rounded-xl border border-white/5 mb-6">
                 <div className="flex items-center gap-2 text-sm text-gray-400">
                   <Zap size={14} className="text-[#FFD700]" />
                   Investimento estimado: <span className="text-white font-semibold">{fmt(calc.investimento)}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <span className="text-green-400">🌱</span>
-                  CO₂ evitado: <span className="text-white font-semibold">{calc.co2Ano.toFixed(1)} ton/ano</span>
+                <div className="text-xs text-gray-500">
+                  ~{(calc.kwhMes / (HS_PICO * 30)).toFixed(1)} kWp · retorno em ~{calc.payback.toFixed(1)} anos · lucro nos {(25 - calc.payback).toFixed(0)} anos seguintes
                 </div>
               </div>
 
+              {/* CTA */}
               <a
                 href={`https://wa.me/${WHATSAPP}?text=${msgWa}`}
                 target="_blank"
@@ -128,21 +176,23 @@ export default function SimuladorSolar() {
                 className="flex items-center justify-center gap-2 w-full bg-[#FFD700] hover:bg-yellow-400 text-black font-bold py-4 rounded-xl transition-all hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] text-base"
               >
                 <MessageCircle size={18} />
-                Quero um orçamento para meu sistema — Economia de {fmt(calc.economiaMes)}/mês
+                Quero economizar {fmt(calc.economiaMes)}/mês — Falar com integrador
               </a>
+
+              {/* Disclaimer */}
               <div className="mt-4 flex gap-3 bg-white/5 border border-white/10 rounded-xl p-4 text-left">
                 <span className="text-yellow-500 text-lg flex-shrink-0 mt-0.5">⚠️</span>
                 <p className="text-xs text-gray-400 leading-relaxed">
-                  <strong className="text-gray-300">Esta é apenas uma simulação.</strong> Os valores são estimativas baseadas na tarifa média da Equatorial Piauí e na irradiação solar média da região — o resultado real pode variar conforme o consumo, equipamentos e condições do local.{" "}
+                  <strong className="text-gray-300">Esta é apenas uma simulação.</strong> Os valores são estimativas baseadas na tarifa real da Equatorial Piauí (R$0,95/kWh) e na irradiação solar média do Piauí — o resultado real varia conforme consumo, equipamentos e local. O Fio B e a CIP são encargos obrigatórios cobrados pela distribuidora e não são eliminados pelo solar.{" "}
                   <a
-                    href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá VOLTZ! Quero um orçamento real e personalizado para energia solar na minha residência/empresa.")}`}
+                    href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá VOLTZ! Quero um dimensionamento técnico gratuito e personalizado para energia solar.")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#FFD700] underline underline-offset-2 hover:text-yellow-300 transition-colors"
                   >
                     Fale com nosso integrador pelo WhatsApp
                   </a>{" "}
-                  para um dimensionamento técnico gratuito e sem compromisso.
+                  para um orçamento técnico sem compromisso.
                 </p>
               </div>
             </>
